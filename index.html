@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VaultBox - Acesso Secreto</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="image-container">
+    <img src="fachada.jpg" id="fachada-img" alt="Clique para revelar a imagem verdadeira" onclick="showPasswordInput()" />
+  </div>
+
+  <div id="password-container" style="display: none;">
+    <input type="password" id="password" placeholder="Digite a senha" />
+    <button onclick="unlockImage()">Revelar imagem</button>
+  </div>
+
+  <div id="secret-content" style="display: none;">
+    <h1>Imagem Revelada!</h1>
+    <img src="foto.jpg" alt="Imagem verdadeira" />
+    <video controls>
+      <source src="video.mp4" type="video/mp4" />
+      Seu navegador não suporta vídeo.
+    </video>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
