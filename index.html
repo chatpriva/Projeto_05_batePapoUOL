@@ -1,205 +1,98 @@
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
-    color: #fff;
-    min-height: 100vh;
-  }
-
-  .header {
-    background: linear-gradient(135deg, #c41e3a, #8b0000);
-    padding: 20px 0;
-    box-shadow: 0 4px 20px rgba(196, 30, 58, 0.3);
-  }
-
-  .header-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-  }
-
-  .logo {
-    font-size: 2.5em;
-    font-weight: bold;
-    text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
-  }
-
-  .settings-btn {
-    background: rgba(255, 255, 255, 0.15);
-    border: none;
-    color: #fff;
-    padding: 12px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1.5em;
-    transition: 0.3s;
-  }
-
-  .settings-btn:hover {
-    background: rgba(255, 255, 255, 0.25);
-    transform: rotate(90deg);
-  }
-
-  .tab-container {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-  }
-
-  .tab-btn {
-    padding: 10px 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    color: #fff;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: 0.3s;
-    font-weight: bold;
-  }
-
-  .tab-btn.active {
-    background: #c41e3a;
-    box-shadow: 0 4px 12px rgba(196, 30, 58, 0.5);
-  }
-
-  .surebet-card {
-    background: #1f1f1f;
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-    margin-bottom: 20px;
-    transition: 0.3s;
-    position: relative;
-  }
-
-  .surebet-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(255,255,255,0.1);
-  }
-
-  .remove-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: #dc3545;
-    border: none;
-    color: white;
-    padding: 6px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.8em;
-    display: none;
-  }
-
-  .surebet-card:hover .remove-btn {
-    display: block;
-  }
-
-  .card-header {
-    margin-bottom: 12px;
-  }
-
-  .match-title {
-    font-size: 1.3em;
-    font-weight: bold;
-  }
-
-  .match-datetime {
-    font-size: 0.95em;
-    color: #ccc;
-  }
-
-  .bet-row {
-    display: flex;
-    justify-content: space-between;
-    margin: 10px 0;
-    background: #2b2b2b;
-    padding: 12px;
-    border-radius: 10px;
-  }
-
-  .house-name {
-    font-weight: bold;
-  }
-
-  .odd-value {
-    font-weight: bold;
-    color: #32cd32;
-  }
-
-  .profit-badge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: #32cd32;
-    color: #000;
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-weight: bold;
-    font-size: 0.9em;
-  }
-
-  .modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: rgba(0,0,0,0.8);
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-  }
-
-  .modal-content {
-    background: #2c2c2c;
-    padding: 30px;
-    border-radius: 10px;
-    text-align: center;
-    border: 2px solid #c41e3a;
-  }
-
-  .password-input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 6px;
-    margin: 15px 0;
-    border: none;
-    background: #444;
-    color: white;
-    text-align: center;
-    font-size: 1.1em;
-  }
-
-  .btn {
-    padding: 10px 20px;
-    border: none;
-    background: #c41e3a;
-    color: white;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-
-  .btn:hover {
-    background: #a9152f;
-  }
-
-  @media (max-width: 768px) {
-    .bet-row {
-      flex-direction: column;
-      text-align: center;
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LA CASA DAS BET</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+      color: white;
     }
-  }
-</style>
+    .header {
+      background: linear-gradient(135deg, #c41e3a, #8b0000);
+      padding: 20px;
+      text-align: center;
+      font-size: 2em;
+      font-weight: bold;
+      text-shadow: 2px 2px 5px #000;
+    }
+    .container {
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    .surebet-card {
+      background: #1f1f1f;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+      margin-bottom: 20px;
+      position: relative;
+      transition: 0.3s;
+    }
+    .surebet-card:hover {
+      transform: translateY(-5px);
+    }
+    .profit-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #32cd32;
+      color: black;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 0.9em;
+    }
+    .match-title {
+      font-size: 1.3em;
+      font-weight: bold;
+    }
+    .match-datetime {
+      font-size: 0.95em;
+      color: #ccc;
+    }
+    .bet-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+      background: #2b2b2b;
+      padding: 12px;
+      border-radius: 10px;
+    }
+    .house-name {
+      font-weight: bold;
+    }
+    .odd-value {
+      font-weight: bold;
+      color: #32cd32;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">🎭 LA CASA DAS BET</div>
+
+  <div class="container">
+    <div class="surebet-card">
+      <div class="profit-badge">Lucro 1.68%</div>
+      <div class="match-title">Spain (W) - Portugal (W)</div>
+      <div class="match-datetime">04/07/2025 16:00</div>
+
+      <div class="bet-row">
+        <div class="house-name">Bet7k</div>
+        <div>Acima 0.5 - escanteios 1º período 2º time</div>
+        <div class="odd-value">1.81</div>
+      </div>
+
+      <div class="bet-row">
+        <div class="house-name">VBet</div>
+        <div>Abaixo 0.5 - escanteios 1º período 2º time</div>
+        <div class="odd-value">2.40</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
