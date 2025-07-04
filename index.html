@@ -865,5 +865,21 @@
         document.getElementById('surebet-form').addEventListener('submit', addSurebet);
 
         // Permitir Enter no campo de senha
-        document.getElementById('password-input').addEventListener('keypress', function(event) {
-            if (event
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        // Fechar modal ao clicar fora
+        document.getElementById('password-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePasswordModal();
+            }
+        });
+
+        // Inicializar pÃ¡gina
+        renderSurebets();
+    </script>
+</body>
+</html>
