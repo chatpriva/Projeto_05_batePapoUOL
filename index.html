@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LA CASA DAS BET - Surebets Profissionais</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);
+            padding: 20px 0;
+            box-shadow: 0 4px 20px rgba(196, 30, 58, 0.3);
+            position: relative;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 2.5em;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .settings-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5em;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .settings-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: rotate(90deg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .tab-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+            font-weight: 500;
+        }
+
+        .tab-btn.active {
+            background: #c41e3a;
+            box-shadow: 0 4px 15px rgba(196, 30, 58, 0.4);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .surebets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .surebet-card {
+            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+            border-radius: 20px;
+            padding: 0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .surebet-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+            padding: 20px;
+            position: relative;
+        }
+
+        .match-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        .match-datetime {
+            font-size: 1.1em;
+            color: #000;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .sport-category {
+            font-size: 1.1em;
+            color: #000;
+            font-weight: 500;
+        }
+
+        .profit-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 12px;
+            border-radius: 12px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .profit-label {
+            font-size: 0.9em;
+            color: #000;
+            margin-bottom: 2px;
+        }
+
+        .profit-value {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .calc-icon {
+            position: absolute;
+            top: 15px;
+            right: 80px;
+            font-size: 1.5em;
+            color: #000;
+        }
+
+        .card-body {
+            background: #fff;
+            padding: 20px;
+            color: #000;
+        }
+
+        .bet-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .bet-row:last-child {
+            border-bottom: none;
+        }
+
+        .house-name {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #000;
+            min-width: 120px;
+        }
+
+        .bet-description {
+            flex: 1;
+            text-align: center;
+            font-size: 1em;
+            color: #333;
+            margin: 0 15px;
+        }
+
+        .odd-value {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #000;
+            min-width: 80px;
+            text-align: right;
+        }
+
+        .sport-footer {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+            font-size: 1.1em;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border: 2px solid #c41e3a;
+            min-width: 400px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            border: 2px solid #c41e3a;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1.1em;
+            text-align: center;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);
+            border: none;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(196, 30, 58, 0.4);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        }
+
+        .admin-panel {
+            display: none;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 2px solid #c41e3a;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #c41e3a;
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #c41e3a;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1em;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+
+        .calculator {
+            background: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid #c41e3a;
+        }
+
+        .calc-result {
+            background: rgba(0, 200, 81, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: #c41e3a;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .remove-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #dc3545;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .logo {
+                font-size: 2em;
+            }
+            
+            .surebets-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row, .form-row-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .bet-row {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">🎭 LA CASA DAS BET</div>
+            <button class="settings-btn" onclick="openPasswordModal()">⚙️</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="tab-container">
+            <button class="tab-btn active" onclick="showTab('surebets')">📊 Surebets</button>
+            <button class="tab-btn" onclick="showTab('calculator')">🧮 Calculadora</button>
+        </div>
+
+        <div id="admin-panel" class="admin-panel">
+            <h3>🔐 Painel Administrativo</h3>
+            <form id="surebet-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Jogo:</label>
+                        <input type="text" id="match" placeholder="Ex: Spain (W) - Portugal (W)" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Data/Hora:</label>
+                        <input type="datetime-local" id="datetime" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Esporte:</label>
+                        <input type="text" id="sport" placeholder="Ex: Futebol" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Lucro (%):</label>
+                        <input type="number" step="0.01" id="profit" placeholder="Ex: 1.68" required>
+                    </div>
+                </div>
+                <div class="form-row-3">
+                    <div class="form-group">
+                        <label>Casa 1:</label>
+                        <input type="text" id="house1" placeholder="Ex: BET 7K" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Mercado 1:</label>
+                        <input type="text" id="market1" placeholder="Ex: Acima 0.5 - escanteios 1º período 2º tempo" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Odd 1:</label>
+                        <input type="number" step="0.01" id="odd1" placeholder="Ex: 1.83" required>
+                    </div>
+                </div>
+                <div class="form-row-3">
+                    <div class="form-group">
+                        <label>Casa 2:</label>
+                        <input type="text" id="house2" placeholder="Ex: Esportingbet" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Mercado 2:</label>
+                        <input type="text" id="market2" placeholder="Ex: Abaixo 0.5 - escanteios 1º período 2º tempo" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Odd 2:</label>
+                        <input type="number" step="0.01" id="odd2" placeholder="Ex: 2.30" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn">➕ Adicionar Surebet</button>
+                <button type="button" class="btn btn-danger" onclick="hideAdminPanel()">❌ Fechar Painel</button>
+            </form>
+        </div>
+
+        <div id="surebets-tab" class="tab-content active">
+            <h2>🎯 Surebets Disponíveis</h2>
+            <div id="surebets-container" class="surebets-grid">
+                <div class="empty-state">
+                    <h3>🎰 Nenhuma Surebet Disponível</h3>
+                    <p>As melhores oportunidades aparecerão aqui!</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="calculator-tab" class="tab-content">
+            <h2>🧮 Calculadora de Surebet</h2>
+            <div class="calculator">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Odd 1:</label>
+                        <input type="number" step="0.01" id="calc-odd1" placeholder="Ex: 2.50">
+                    </div>
+                    <div class="form-group">
+                        <label>Odd 2:</label>
+                        <input type="number" step="0.01" id="calc-odd2" placeholder="Ex: 1.80">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Valor Total a Apostar (R$):</label>
+                    <input type="number" step="0.01" id="calc-total" placeholder="Ex: 1000">
+                </div>
+                <button type="button" class="btn" onclick="calculateSurebet()">🔢 Calcular</button>
+                <div id="calc-result" class="calc-result" style="display: none;">
+                    <h3>📊 Resultado da Calculadora</h3>
+                    <div id="calc-output"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="password-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closePasswordModal()">×</button>
+            <h3>🔐 Acesso Administrativo</h3>
+            <p>Digite a senha para acessar o painel:</p>
+            <input type="password" id="password-input" class="password-input" placeholder="Digite a senha...">
+            <button class="btn" onclick="checkPassword()">🔓 Entrar</button>
+        </div>
+    </div>
+
+    <script>
+        // Dados das surebets (armazenados localmente)
+        let surebets = JSON.parse(localStorage.getItem('lacasadasbet_surebets')) || [];
+        let isAdminMode = false;
+
+        // Função para mostrar/ocultar tabs
+        function showTab(tabName) {
+            // Remove active de todos os botões
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Adiciona active ao botão e conteúdo selecionado
+            event.target.classList.add('active');
+            document.getElementById(tabName + '-tab').classList.add('active');
+        }
+
+        // Função para abrir modal de senha
+        function openPasswordModal() {
+            document.getElementById('password-modal').style.display = 'block';
+            document.getElementById('password-input').focus();
+        }
+
+        // Função para fechar modal de senha
+        function closePasswordModal() {
+            document.getElementById('password-modal').style.display = 'none';
+            document.getElementById('password-input').value = '';
+        }
+
+        // Função para verificar senha
+        function checkPassword() {
+            const password = document.getElementById('password-input').value;
+            if (password === '37511158') {
+                closePasswordModal();
+                showAdminPanel();
+            } else {
+                alert('❌ Senha incorreta!');
+                document.getElementById('password-input').value = '';
+            }
+        }
+
+        // Função para mostrar painel administrativo
+        function showAdminPanel() {
+            isAdminMode = true;
+            document.getElementById('admin-panel').style.display = 'block';
+            document.getElementById('admin-panel').scrollIntoView({ behavior: 'smooth' });
+            renderSurebets(); // Re-renderizar para mostrar botões de remover
+        }
+
+        // Função para ocultar painel administrativo
+        function hideAdminPanel() {
+            isAdminMode = false;
+            document.getElementById('admin-panel').style.display = 'none';
+            renderSurebets(); // Re-renderizar para ocultar botões de remover
+        }
+
+        // Função para renderizar surebets
+        function renderSurebets() {
+            const container = document.getElementById('surebets-container');
+            
+            if (surebets.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>🎰 Nenhuma Surebet Disponível</h3>
+                        <p>As melhores oportunidades aparecerão aqui!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = surebets.map((surebet, index) => `
+                <div class="surebet-card">
+                    ${isAdminMode ? `<button class="remove-btn" onclick="removeSurebet(${index})">🗑️</button>` : ''}
+                    <div class="card-header">
+                        <div class="calc-icon">🧮</div>
+                        <div class="profit-badge">
+                            <div class="profit-label">Lucro de</div>
+                            <div class="profit-value">${surebet.profit}%</div>
+                        </div>
+                        <div class="match-title">${surebet.match}</div>
+                        <div class="match-datetime">${formatDateTime(surebet.datetime)}</div>
+                        <div class="sport-category">${surebet.sport}</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="bet-row">
+                            <div class="house-name">${surebet.house1}</div>
+                            <div class="bet-description">${surebet.market1}</div>
+                            <div class="odd-value">${surebet.odd1} (odd)</div>
+                        </div>
+                        <div class="bet-row">
+                            <div class="house-name">${surebet.house2}</div>
+                            <div class="bet-description">${surebet.market2}</div>
+                            <div class="odd-value">${surebet.odd2} (odd)</div>
+                        </div>
+                    </div>
+                    <div class="sport-footer">${surebet.sport}</div>
+                </div>
+            `).join('');
+        }
+
+        // Função para formatar data/hora
+        function formatDateTime(datetime) {
+            const date = new Date(datetime);
+            return date.toLocaleString('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // Função para adicionar surebet
+        function addSurebet(event) {
+            event.preventDefault();
+            
+            const surebet = {
+                match: document.getElementById('match').value,
+                datetime: document.getElementById('datetime').value,
+                sport: document.getElementById('sport').value,
+                house1: document.getElementById('house1').value,
+                market1: document.getElementById('market1').value,
+                odd1: parseFloat(document.getElementById('odd1').value),
+                house2: document.getElementById('house2').value,
+                market2: document.getElementById('market2').value,
+                odd2: parseFloat(document.getElementById('odd2').value),
+                profit: parseFloat(document.getElementById('profit').value)
+            };
+
+            surebets.push(surebet);
+            localStorage.setItem('lacasadasbet_surebets', JSON.stringify(surebets));
+            
+            // Limpar formulário
+            document.getElementById('surebet-form').reset();
+            
+            // Atualizar visualização
+            renderSurebets();
+            
+            alert('✅ Surebet adicionada com sucesso!');
+        }
+
+        // Função para remover surebet
+        function removeSurebet(index) {
+            if (confirm('❓ Tem certeza que deseja remover esta surebet?')) {
+                surebets.splice(index, 1);
+                localStorage.setItem('lacasadasbet_surebets', JSON.stringify(surebets));
+                renderSurebets();
+                alert('🗑️ Surebet removida com sucesso!');
+            }
+        }
+
+        // Função para calcular surebet
+        function calculateSurebet() {
+            const odd1 = parseFloat(document.getElementById('calc-odd1').value);
+            const odd2 = parseFloat(document.getElementById('calc-odd2').value);
+            const total = parseFloat(document.getElementById('calc-total').value);
+
+            if (!odd1 || !odd2 || !total) {
+                alert('❌ Preencha todos os campos!');
+                return;
+            }
+
+            // Calcular se é surebet
+            const impliedProb1 = 1 / odd1;
+            const impliedProb2 = 1 / odd2;
+            const totalProb = impliedProb1 + impliedProb2;
+
+            if (totalProb >= 1) {
+                alert('❌ Essas odds não formam uma surebet!');
+                return;
+            }
+
+            // Calcular distribuição ideal
+            const stake1 = (total * impliedProb1) / totalProb;
+            const stake2 = (total * impliedProb2) / totalProb;
+            const profit = total - (stake1 + stake2);
+            const profitPercent = (profit / total) * 100;
+
+            // Mostrar resultado
+            document.getElementById('calc-result').style.display = 'block';
+            document.getElementById('calc-output').innerHTML = `
+                <h4>💰 Distribuição Ideal:</h4>
+                <p><strong>Apostar R$ ${stake1.toFixed(2)}</strong> na Odd ${odd1}</p>
+                <p><strong>Apostar R$ ${stake2.toFixed(2)}</strong> na Odd ${odd2}</p>
+                <p><strong>Lucro Garantido: R$ ${profit.toFixed(2)} (${profitPercent.toFixed(2)}%)</strong></p>
+            `;
+        }
+
+        // Event listeners
+        document.getElementById('surebet-form').addEventListener('submit', addSurebet);
+
+        // Permitir Enter no campo de senha
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        // Fechar modal ao clicar fora
+        document.getElementById('password-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePasswordModal();
+            }
+        });
+
+        // Inicializar página
+        renderSurebets();
+    </script>
+</body>
+</html>
