@@ -1,249 +1,205 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>LA CASA DAS BET - Surebets Profissionais</title>
-  <style>
-    /* [estilos mantidos iguais ao original para preservar o visual] */
-    /* ... */
-    .remove-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: #dc3545;
-      border: none;
-      color: white;
-      padding: 5px 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 0.8em;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+    color: #fff;
+    min-height: 100vh;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #c41e3a, #8b0000);
+    padding: 20px 0;
+    box-shadow: 0 4px 20px rgba(196, 30, 58, 0.3);
+  }
+
+  .header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+  }
+
+  .logo {
+    font-size: 2.5em;
+    font-weight: bold;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+  }
+
+  .settings-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: #fff;
+    padding: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5em;
+    transition: 0.3s;
+  }
+
+  .settings-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: rotate(90deg);
+  }
+
+  .tab-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .tab-btn {
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+  }
+
+  .tab-btn.active {
+    background: #c41e3a;
+    box-shadow: 0 4px 12px rgba(196, 30, 58, 0.5);
+  }
+
+  .surebet-card {
+    background: #1f1f1f;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    margin-bottom: 20px;
+    transition: 0.3s;
+    position: relative;
+  }
+
+  .surebet-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(255,255,255,0.1);
+  }
+
+  .remove-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #dc3545;
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8em;
+    display: none;
+  }
+
+  .surebet-card:hover .remove-btn {
+    display: block;
+  }
+
+  .card-header {
+    margin-bottom: 12px;
+  }
+
+  .match-title {
+    font-size: 1.3em;
+    font-weight: bold;
+  }
+
+  .match-datetime {
+    font-size: 0.95em;
+    color: #ccc;
+  }
+
+  .bet-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    background: #2b2b2b;
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  .house-name {
+    font-weight: bold;
+  }
+
+  .odd-value {
+    font-weight: bold;
+    color: #32cd32;
+  }
+
+  .profit-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #32cd32;
+    color: #000;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 0.9em;
+  }
+
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.8);
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+
+  .modal-content {
+    background: #2c2c2c;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid #c41e3a;
+  }
+
+  .password-input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    margin: 15px 0;
+    border: none;
+    background: #444;
+    color: white;
+    text-align: center;
+    font-size: 1.1em;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    border: none;
+    background: #c41e3a;
+    color: white;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .btn:hover {
+    background: #a9152f;
+  }
+
+  @media (max-width: 768px) {
+    .bet-row {
+      flex-direction: column;
+      text-align: center;
     }
-
-    .surebet-card:hover .remove-btn {
-      opacity: 1;
-    }
-  </style>
-</head>
-<body>
-  <div class="header">
-    <div class="header-content">
-      <div class="logo">🎭 LA CASA DAS BET</div>
-      <button class="settings-btn" onclick="openPasswordModal()">⚙️</button>
-    </div>
-  </div>
-
-  <div class="container">
-    <div class="tab-container">
-      <button class="tab-btn active" onclick="showTab('surebets')">📊 Surebets</button>
-      <button class="tab-btn" onclick="showTab('calculator')">🧮 Calculadora</button>
-    </div>
-
-    <div id="admin-panel" class="admin-panel" style="display: none;">
-      <h3>🔐 Painel Administrativo</h3>
-      <form id="surebet-form">
-        <!-- formulário igual ao original -->
-        <!-- ... -->
-        <button type="submit" class="btn">➕ Adicionar Surebet</button>
-        <button type="button" class="btn btn-danger" onclick="hideAdminPanel()">❌ Fechar Painel</button>
-      </form>
-    </div>
-
-    <div id="surebets-tab" class="tab-content active">
-      <h2>🎯 Surebets Disponíveis</h2>
-      <div id="surebets-container" class="surebets-grid">
-        <div class="empty-state">
-          <h3>🎰 Nenhuma Surebet Disponível</h3>
-          <p>As melhores oportunidades aparecerão aqui!</p>
-        </div>
-      </div>
-    </div>
-
-    <div id="calculator-tab" class="tab-content">
-      <h2>🧮 Calculadora de Surebet</h2>
-      <div class="calculator">
-        <!-- calculadora igual ao original -->
-        <!-- ... -->
-      </div>
-    </div>
-  </div>
-
-  <div id="password-modal" class="modal">
-    <div class="modal-content">
-      <button class="close-btn" onclick="closePasswordModal()">×</button>
-      <h3>🔐 Acesso Administrativo</h3>
-      <p>Digite a senha para acessar o painel:</p>
-      <input type="password" id="password-input" class="password-input" placeholder="Digite a senha..."/>
-      <button class="btn" onclick="checkPassword()">🔓 Entrar</button>
-    </div>
-  </div>
-
-  <script>
-    // Variáveis globais
-    let isAdminMode = false;
-    let surebets = JSON.parse(localStorage.getItem('lacasadasbet_surebets')) || [];
-
-    function showTab(tabName) {
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-      event.target.classList.add('active');
-      document.getElementById(tabName + '-tab').classList.add('active');
-    }
-
-    function openPasswordModal() {
-      document.getElementById('password-modal').style.display = 'block';
-      document.getElementById('password-input').focus();
-    }
-
-    function closePasswordModal() {
-      document.getElementById('password-modal').style.display = 'none';
-      document.getElementById('password-input').value = '';
-    }
-
-    function checkPassword() {
-      const password = document.getElementById('password-input').value;
-      if (password === '37511158') {
-        closePasswordModal();
-        showAdminPanel();
-      } else {
-        alert('❌ Senha incorreta!');
-        document.getElementById('password-input').value = '';
-      }
-    }
-
-    function showAdminPanel() {
-      isAdminMode = true;
-      document.getElementById('admin-panel').style.display = 'block';
-      document.getElementById('admin-panel').scrollIntoView({ behavior: 'smooth' });
-      renderSurebets();
-    }
-
-    function hideAdminPanel() {
-      isAdminMode = false;
-      document.getElementById('admin-panel').style.display = 'none';
-      renderSurebets();
-    }
-
-    function renderSurebets() {
-      const container = document.getElementById('surebets-container');
-      if (surebets.length === 0) {
-        container.innerHTML = `
-          <div class="empty-state">
-            <h3>🎰 Nenhuma Surebet Disponível</h3>
-            <p>As melhores oportunidades aparecerão aqui!</p>
-          </div>`;
-        return;
-      }
-
-      container.innerHTML = surebets.map((surebet, index) => `
-        <div class="surebet-card">
-          ${isAdminMode ? `<button class="remove-btn" onclick="removeSurebet(${index})">🗑️</button>` : ''}
-          <div class="card-header">
-            <div class="calc-icon">🧮</div>
-            <div class="profit-badge">
-              <div class="profit-label">Lucro de</div>
-              <div class="profit-value">${surebet.profit}%</div>
-            </div>
-            <div class="match-title">${surebet.match}</div>
-            <div class="match-datetime">${formatDateTime(surebet.datetime)}</div>
-            <div class="sport-category">${surebet.sport}</div>
-          </div>
-          <div class="card-body">
-            <div class="bet-row">
-              <div class="house-name">${surebet.house1}</div>
-              <div class="bet-description">${surebet.market1}</div>
-              <div class="odd-value">${surebet.odd1} (odd)</div>
-            </div>
-            <div class="bet-row">
-              <div class="house-name">${surebet.house2}</div>
-              <div class="bet-description">${surebet.market2}</div>
-              <div class="odd-value">${surebet.odd2} (odd)</div>
-            </div>
-          </div>
-          <div class="sport-footer">${surebet.sport}</div>
-        </div>`).join('');
-    }
-
-    function formatDateTime(datetime) {
-      const date = new Date(datetime);
-      return date.toLocaleString('pt-BR', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      });
-    }
-
-    function addSurebet(event) {
-      event.preventDefault();
-      const surebet = {
-        match: document.getElementById('match').value,
-        datetime: document.getElementById('datetime').value,
-        sport: document.getElementById('sport').value,
-        house1: document.getElementById('house1').value,
-        market1: document.getElementById('market1').value,
-        odd1: parseFloat(document.getElementById('odd1').value),
-        house2: document.getElementById('house2').value,
-        market2: document.getElementById('market2').value,
-        odd2: parseFloat(document.getElementById('odd2').value),
-        profit: parseFloat(document.getElementById('profit').value)
-      };
-      surebets.push(surebet);
-      localStorage.setItem('lacasadasbet_surebets', JSON.stringify(surebets));
-      document.getElementById('surebet-form').reset();
-      renderSurebets();
-      alert('✅ Surebet adicionada com sucesso!');
-    }
-
-    function removeSurebet(index) {
-      if (confirm('❓ Tem certeza que deseja remover esta surebet?')) {
-        surebets.splice(index, 1);
-        localStorage.setItem('lacasadasbet_surebets', JSON.stringify(surebets));
-        renderSurebets();
-        alert('🗑️ Surebet removida com sucesso!');
-      }
-    }
-
-    function calculateSurebet() {
-      const odd1 = parseFloat(document.getElementById('calc-odd1').value);
-      const odd2 = parseFloat(document.getElementById('calc-odd2').value);
-      const total = parseFloat(document.getElementById('calc-total').value);
-      if (!odd1 || !odd2 || !total) {
-        alert('❌ Preencha todos os campos!');
-        return;
-      }
-      const imp1 = 1 / odd1;
-      const imp2 = 1 / odd2;
-      const totalProb = imp1 + imp2;
-      if (totalProb >= 1) {
-        alert('❌ Essas odds não formam uma surebet!');
-        return;
-      }
-      const stake1 = (total * imp1) / totalProb;
-      const stake2 = (total * imp2) / totalProb;
-      const profit = total - (stake1 + stake2);
-      const percent = (profit / total) * 100;
-      document.getElementById('calc-result').style.display = 'block';
-      document.getElementById('calc-output').innerHTML = `
-        <h4>💰 Distribuição Ideal:</h4>
-        <p><strong>Apostar R$ ${stake1.toFixed(2)}</strong> na Odd ${odd1}</p>
-        <p><strong>Apostar R$ ${stake2.toFixed(2)}</strong> na Odd ${odd2}</p>
-        <p><strong>Lucro Garantido: R$ ${profit.toFixed(2)} (${percent.toFixed(2)}%)</strong></p>
-      `;
-    }
-
-    document.getElementById('surebet-form').addEventListener('submit', addSurebet);
-    document.getElementById('password-input').addEventListener('keypress', function (e) {
-      if (e.key === 'Enter') checkPassword();
-    });
-    document.getElementById('password-modal').addEventListener('click', function (e) {
-      if (e.target === this) closePasswordModal();
-    });
-
-    renderSurebets();
-  </script>
-</body>
-    </html>
+  }
+</style>
