@@ -338,6 +338,7 @@
             border-radius: 10px;
             margin-top: 15px;
             text-align: center;
+            border: 1px solid #00c851;
         }
 
         .empty-state {
@@ -369,11 +370,26 @@
             background: #dc3545;
             border: none;
             color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 8px 12px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 0.8em;
-            opacity: 1;
+            font-size: 0.9em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .remove-btn:hover {
+            background: #c82333;
+            transform: scale(1.05);
+        }
+
+        .admin-mode .remove-btn {
+            display: block;
+        }
+
+        .remove-btn {
+            display: none;
         }
 
         @media (max-width: 768px) {
@@ -398,6 +414,17 @@
                 flex-direction: column;
                 gap: 10px;
                 text-align: center;
+            }
+
+            .profit-badge {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-top: 10px;
+            }
+
+            .calc-icon {
+                display: none;
             }
         }
     </style>
@@ -519,7 +546,7 @@
     </div>
 
     <script>
-        // Dados das surebets (armazenados localmente)
+        // Dados das surebets (armazenados no navegador)
         let surebets = JSON.parse(localStorage.getItem('lacasadasbet_surebets')) || [];
         let isAdminMode = false;
 
@@ -563,6 +590,7 @@
             isAdminMode = true;
             document.getElementById('admin-panel').style.display = 'block';
             document.getElementById('admin-panel').scrollIntoView({ behavior: 'smooth' });
+            document.body.classList.add('admin-mode');
             renderSurebets(); // Re-renderizar para mostrar botões de remover
         }
 
@@ -570,6 +598,7 @@
         function hideAdminPanel() {
             isAdminMode = false;
             document.getElementById('admin-panel').style.display = 'none';
+            document.body.classList.remove('admin-mode');
             renderSurebets(); // Re-renderizar para ocultar botões de remover
         }
 
@@ -589,7 +618,7 @@
 
             container.innerHTML = surebets.map((surebet, index) => `
                 <div class="surebet-card">
-                    ${isAdminMode ? `<button class="remove-btn" onclick="removeSurebet(${index})">🗑️</button>` : ''}
+                    <button class="remove-btn" onclick="removeSurebet(${index})">🗑️ Apagar</button>
                     <div class="card-header">
                         <div class="calc-icon">🧮</div>
                         <div class="profit-badge">
@@ -668,7 +697,7 @@
             }
         }
 
-        // Função para calcular surebet
+        // Função para calcular surebet (CORRIGIDA)
         function calculateSurebet() {
             const odd1 = parseFloat(document.getElementById('calc-odd1').value);
             const odd2 = parseFloat(document.getElementById('calc-odd2').value);
@@ -692,16 +721,33 @@
             // Calcular distribuição ideal
             const stake1 = (total * impliedProb1) / totalProb;
             const stake2 = (total * impliedProb2) / totalProb;
-            const profit = total - (stake1 + stake2);
-            const profitPercent = (profit / total) * 100;
+            
+            // Calcular lucro de cada cenário
+            const profit1 = (stake1 * odd1) - total; // Se a aposta 1 ganhar
+            const profit2 = (stake2 * odd2) - total; // Se a aposta 2 ganhar
+            
+            // O lucro garantido é o mesmo nos dois cenários
+            const guaranteedProfit = profit1;
+            const profitPercent = (guaranteedProfit / total) * 100;
 
             // Mostrar resultado
             document.getElementById('calc-result').style.display = 'block';
             document.getElementById('calc-output').innerHTML = `
-                <h4>💰 Distribuição Ideal:</h4>
-                <p><strong>Apostar R$ ${stake1.toFixed(2)}</strong> na Odd ${odd1}</p>
-                <p><strong>Apostar R$ ${stake2.toFixed(2)}</strong> na Odd ${odd2}</p>
-                <p><strong>Lucro Garantido: R$ ${profit.toFixed(2)} (${profitPercent.toFixed(2)}%)</strong></p>
+                <h4>💰 Distribuição Ideal das Apostas:</h4>
+                <div style="margin: 15px 0; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 8px;">
+                    <p><strong>🎯 Apostar R$ ${stake1.toFixed(2)}</strong> na Odd ${odd1.toFixed(2)}</p>
+                    <p><strong>🎯 Apostar R$ ${stake2.toFixed(2)}</strong> na Odd ${odd2.toFixed(2)}</p>
+                </div>
+                <div style="margin: 15px 0; padding: 15px; background: rgba(0, 200, 81, 0.2); border-radius: 8px; border: 2px solid #00c851;">
+                    <h4>💵 Lucro Garantido:</h4>
+                    <p style="font-size: 1.2em; margin: 5px 0;"><strong>R$ ${guaranteedProfit.toFixed(2)}</strong></p>
+                    <p style="font-size: 1.1em; color: #00c851;"><strong>${profitPercent.toFixed(2)}% de lucro</strong></p>
+                </div>
+                <div style="margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px; font-size: 0.9em;">
+                    <p><strong>📊 Verificação:</strong></p>
+                    <p>• Se odd ${odd1.toFixed(2)} ganhar: R$ ${(stake1 * odd1).toFixed(2)} - R$ ${total.toFixed(2)} = R$ ${profit1.toFixed(2)}</p>
+                    <p>• Se odd ${odd2.toFixed(2)} ganhar: R$ ${(stake2 * odd2).toFixed(2)} - R$ ${total.toFixed(2)} = R$ ${profit2.toFixed(2)}</p>
+                </div>
             `;
         }
 
@@ -726,4 +772,4 @@
         renderSurebets();
     </script>
 </body>
-</html>
+    </html>
