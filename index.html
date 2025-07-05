@@ -884,4 +884,273 @@
         }
 
         // Tab Functions
-        function showTab
+        function showTab// Tab Functions
+        function showTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Hide all tab buttons
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Password Modal Functions
+        function openPasswordModal() {
+            document.getElementById('password-modal').style.display = 'block';
+            document.getElementById('password-input').focus();
+        }
+
+        function closePasswordModal() {
+            document.getElementById('password-modal').style.display = 'none';
+            document.getElementById('password-input').value = '';
+        }
+
+        function checkPassword() {
+            const password = document.getElementById('password-input').value;
+            const correctPassword = 'admin123'; // Change this to your desired password
+            
+            if (password === correctPassword) {
+                showAdminPanel();
+                closePasswordModal();
+                showNotification('🔓 Acesso liberado!');
+            } else {
+                showNotification('❌ Senha incorreta!', 'error');
+                document.getElementById('password-input').value = '';
+            }
+        }
+
+        // Admin Panel Functions
+        function showAdminPanel() {
+            isAdminMode = true;
+            document.getElementById('admin-panel').style.display = 'block';
+            document.body.classList.add('admin-mode');
+        }
+
+        function hideAdminPanel() {
+            isAdminMode = false;
+            document.getElementById('admin-panel').style.display = 'none';
+            document.body.classList.remove('admin-mode');
+        }
+
+        // Add Surebet Function
+        function addSurebet(event) {
+            event.preventDefault();
+            
+            const formData = {
+                id: generateId(),
+                match: document.getElementById('match').value,
+                datetime: document.getElementById('datetime').value,
+                sport: document.getElementById('sport').value,
+                profit: parseFloat(document.getElementById('profit').value),
+                house1: document.getElementById('house1').value,
+                market1: document.getElementById('market1').value,
+                odd1: parseFloat(document.getElementById('odd1').value),
+                house2: document.getElementById('house2').value,
+                market2: document.getElementById('market2').value,
+                odd2: parseFloat(document.getElementById('odd2').value),
+                timestamp: Date.now()
+            };
+            
+            // Validate profit calculation
+            const calculatedProfit = ((1 / formData.odd1) + (1 / formData.odd2)) * 100;
+            if (calculatedProfit >= 100) {
+                showNotification('❌ Odds não formam uma surebet válida!', 'error');
+                return;
+            }
+            
+            // Add to Firebase
+            surebetRef.child(formData.id).set(formData)
+                .then(() => {
+                    showNotification('✅ Surebet adicionada com sucesso!');
+                    document.getElementById('surebet-form').reset();
+                })
+                .catch((error) => {
+                    showNotification('❌ Erro ao adicionar surebet!', 'error');
+                    console.error('Error:', error);
+                });
+        }
+
+        // Remove Surebet Function
+        function removeSurebet(id) {
+            if (confirm('Tem certeza que deseja remover esta surebet?')) {
+                surebetRef.child(id).remove()
+                    .then(() => {
+                        showNotification('🗑️ Surebet removida!');
+                    })
+                    .catch((error) => {
+                        showNotification('❌ Erro ao remover surebet!', 'error');
+                        console.error('Error:', error);
+                    });
+            }
+        }
+
+        // Render Surebets
+        function renderSurebets() {
+            const container = document.getElementById('surebets-container');
+            const surebetsList = Object.values(surebets);
+            
+            if (surebetsList.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>🎰 Nenhuma Surebet Disponível</h3>
+                        <p>As melhores oportunidades aparecerão aqui!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Sort by profit (highest first)
+            surebetsList.sort((a, b) => b.profit - a.profit);
+            
+            container.innerHTML = surebetsList.map(surebet => `
+                <div class="surebet-card new-item">
+                    <div class="card-header">
+                        <button class="remove-btn" onclick="removeSurebet('${surebet.id}')">
+                            🗑️
+                        </button>
+                        <div class="profit-badge">
+                            <div class="profit-label">LUCRO</div>
+                            <div class="profit-value">${surebet.profit.toFixed(2)}%</div>
+                        </div>
+                        <div class="match-info">
+                            <div class="match-title">${surebet.match}</div>
+                            <div class="match-datetime">
+                                📅 ${formatDateTime(surebet.datetime)}
+                            </div>
+                            <div class="sport-category">
+                                ${surebet.sport}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="bet-row">
+                            <div class="house-name">${surebet.house1}</div>
+                            <div class="bet-description">${surebet.market1}</div>
+                            <div class="odd-value">${surebet.odd1.toFixed(2)}</div>
+                        </div>
+                        <div class="bet-row">
+                            <div class="house-name">${surebet.house2}</div>
+                            <div class="bet-description">${surebet.market2}</div>
+                            <div class="odd-value">${surebet.odd2.toFixed(2)}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Calculator Functions
+        function calculateSurebet() {
+            const odd1 = parseFloat(document.getElementById('calc-odd1').value);
+            const odd2 = parseFloat(document.getElementById('calc-odd2').value);
+            const total = parseFloat(document.getElementById('calc-total').value);
+            
+            if (!odd1 || !odd2 || !total) {
+                showNotification('❌ Preencha todos os campos!', 'error');
+                return;
+            }
+            
+            const prob1 = 1 / odd1;
+            const prob2 = 1 / odd2;
+            const totalProb = prob1 + prob2;
+            
+            if (totalProb >= 1) {
+                showNotification('❌ Essas odds não formam uma surebet!', 'error');
+                return;
+            }
+            
+            const stake1 = (total * prob1) / totalProb;
+            const stake2 = (total * prob2) / totalProb;
+            const profit = total - (stake1 + stake2);
+            const profitPercentage = (profit / total) * 100;
+            
+            const resultDiv = document.getElementById('calc-result');
+            const outputDiv = document.getElementById('calc-output');
+            
+            outputDiv.innerHTML = `
+                <p><strong>💰 Apostar na Odd 1:</strong> R$ ${stake1.toFixed(2)}</p>
+                <p><strong>💰 Apostar na Odd 2:</strong> R$ ${stake2.toFixed(2)}</p>
+                <p><strong>📈 Lucro Garantido:</strong> R$ ${profit.toFixed(2)}</p>
+                <p><strong>📊 Percentual de Lucro:</strong> ${profitPercentage.toFixed(2)}%</p>
+            `;
+            
+            resultDiv.style.display = 'block';
+            showNotification('🧮 Cálculo realizado com sucesso!');
+        }
+
+        // Utility Functions
+        function generateId() {
+            return Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
+        }
+
+        function formatDateTime(datetime) {
+            const date = new Date(datetime);
+            const now = new Date();
+            const diff = date.getTime() - now.getTime();
+            const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+            
+            const options = {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            
+            const formatted = date.toLocaleDateString('pt-BR', options);
+            
+            if (days === 0) {
+                return `${formatted} (Hoje)`;
+            } else if (days === 1) {
+                return `${formatted} (Amanhã)`;
+            } else if (days > 1) {
+                return `${formatted} (${days} dias)`;
+            } else {
+                return `${formatted} (Passou)`;
+            }
+        }
+
+        // Auto-refresh surebets every 30 seconds
+        setInterval(() => {
+            if (isConnected) {
+                // This will trigger the real-time listener
+                console.log('Auto-refreshing surebets...');
+            }
+        }, 30000);
+
+        // Handle connection state
+        firebase.database().ref('.info/connected').on('value', (snapshot) => {
+            const connected = snapshot.val();
+            updateConnectionStatus(connected);
+        });
+
+        // Initialize the application when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initializeApp);
+
+        // Handle page visibility changes
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                // Page is hidden
+                console.log('Page hidden');
+            } else {
+                // Page is visible
+                console.log('Page visible');
+                if (userSession) {
+                    usersRef.child(userSession.id).set(userSession);
+                }
+            }
+        });
+
+        // Handle window beforeunload
+        window.addEventListener('beforeunload', () => {
+            if (userSession) {
+                usersRef.child(userSession.id).remove();
+            }
+        });
+    </script>
+</body>
+</html>
