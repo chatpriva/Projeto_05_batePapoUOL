@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>La Casa das BET</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+    }
+    header {
+      background-color: #c40000;
+      padding: 20px;
+      text-align: center;
+    }
+    header img {
+      max-height: 60px;
+    }
+    .surebets {
+      padding: 20px;
+    }
+    .card {
+      background-color: #111;
+      border: 1px solid #c40000;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+  </style>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="La Casa das BET" />
+  </header>
+
+  <div class="surebets" id="surebet-list">
+    <!-- Surebets vão aparecer aqui -->
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyArY5MJpAlRnQhWV3TYrsh9LYH9Sw2nAeo",
+      authDomain: "surebet-4916a.firebaseapp.com",
+      databaseURL: "https://surebet-4916a-default-rtdb.firebaseio.com",
+      projectId: "surebet-4916a",
+      storageBucket: "surebet-4916a.firebasestorage.app",
+      messagingSenderId: "975170682118",
+      appId: "1:975170682118:web:1a551a221f1436bd8f3287",
+      measurementId: "G-VQR0H34N9Q"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    function renderSurebets(snapshot) {
+      const list = document.getElementById("surebet-list");
+      list.innerHTML = "";
+      snapshot.forEach(child => {
+        const s = child.val();
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <strong>${s.jogo}</strong><br>
+          <small>${s.dataHora} - ${s.esporte}</small><br>
+          <div>Odd 1: ${s.odd1} (${s.casa1}) - ${s.tipo1}</div>
+          <div>Odd 2: ${s.odd2} (${s.casa2}) - ${s.tipo2}</div>
+          <div>Lucro: <strong>${s.lucro}%</strong></div>
+        `;
+        list.appendChild(card);
+      });
+    }
+
+    db.ref("surebets").on("value", renderSurebets);
+  </script>
+
+<div style="position:fixed; top:10px; right:10px;">
+  <button onclick="showAdminPanel()">⚙️</button>
+</div>
+<div id="admin-panel" style="display:none; padding:20px; background:#111;">
+  <h3>Painel de Administração</h3>
+  <input id="jogo" placeholder="Jogo"><br>
+  <input id="dataHora" placeholder="Data e Hora"><br>
+  <input id="esporte" placeholder="Esporte"><br>
+  <input id="odd1" placeholder="Odd 1"><br>
+  <input id="casa1" placeholder="Casa 1"><br>
+  <input id="tipo1" placeholder="Tipo 1"><br>
+  <input id="odd2" placeholder="Odd 2"><br>
+  <input id="casa2" placeholder="Casa 2"><br>
+  <input id="tipo2" placeholder="Tipo 2"><br>
+  <input id="lucro" placeholder="Lucro %"><br>
+  <button onclick="addSurebet()">Adicionar</button>
+  <div id="admin-list" style="margin-top:20px;"></div>
+</div>
+<a href="calculadora.html" style="color:#c40000; margin-left:20px;">🧮 Ir para Calculadora</a>
+
+<script>
+function showAdminPanel() {
+  const senha = prompt("Digite a senha:");
+  if (senha === "37511158") {
+    document.getElementById("admin-panel").style.display = "block";
+  } else {
+    alert("Senha incorreta!");
+  }
+}
+
+function addSurebet() {
+  const jogo = document.getElementById("jogo").value;
+  const dataHora = document.getElementById("dataHora").value;
+  const esporte = document.getElementById("esporte").value;
+  const odd1 = document.getElementById("odd1").value;
+  const casa1 = document.getElementById("casa1").value;
+  const tipo1 = document.getElementById("tipo1").value;
+  const odd2 = document.getElementById("odd2").value;
+  const casa2 = document.getElementById("casa2").value;
+  const tipo2 = document.getElementById("tipo2").value;
+  const lucro = document.getElementById("lucro").value;
+
+  const newSurebet = {
+    jogo, dataHora, esporte,
+    odd1, casa1, tipo1,
+    odd2, casa2, tipo2,
+    lucro
+  };
+
+  firebase.database().ref("surebets").push(newSurebet);
+}
+
+function renderAdminList(snapshot) {
+  const adminList = document.getElementById("admin-list");
+  adminList.innerHTML = "";
+  snapshot.forEach(child => {
+    const s = child.val();
+    const key = child.key;
+    const div = document.createElement("div");
+    div.className = "card";
+    div.innerHTML = `
+      <strong>${s.jogo}</strong> (${s.dataHora}) - ${s.lucro}%<br>
+      <button onclick="removeSurebet('${key}')">Remover</button>
+    `;
+    adminList.appendChild(div);
+  });
+}
+
+function removeSurebet(key) {
+  firebase.database().ref("surebets/" + key).remove();
+}
+</script>
+</body>
+</html>
