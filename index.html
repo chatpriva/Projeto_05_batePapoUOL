@@ -450,7 +450,7 @@
     <script type="module">
         // Firebase Configuration
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getDatabase, ref, push, onValue, remove } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+        import { getDatabase, ref, push, onValue, remove, set } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
 
         const firebaseConfig = {
             apiKey: "AIzaSyArY5MJpAlRnQhWV3TYrsh9LYH9Sw2nAeo",
@@ -473,6 +473,7 @@
         window.push = push;
         window.onValue = onValue;
         window.remove = remove;
+        window.set = set;
 
         // Load surebets on page load
         loadSurebets();
@@ -657,12 +658,19 @@
                 timestamp: new Date().toISOString()
             };
 
-            const surebetsRef = window.ref(window.database, 'surebets');
-            window.push(surebetsRef, surebet).then(() => {
+            // Gera um ID único baseado no timestamp
+            const surebetId = 'surebet_' + Date.now();
+            const surebetRef = window.ref(window.database, 'surebets/' + surebetId);
+            
+            console.log('Tentando salvar surebet...', surebet);
+            
+            window.set(surebetRef, surebet).then(() => {
+                console.log('Surebet salva com sucesso!');
                 alert('Surebet salva com sucesso!');
                 document.getElementById('surebetForm').reset();
             }).catch((error) => {
-                alert('Erro ao salvar: ' + error.message);
+                console.error('Erro detalhado:', error);
+                alert('Erro ao salvar: ' + error.message + '\n\nVerifique se o Firebase está configurado corretamente.');
             });
         }
 
@@ -691,4 +699,4 @@
         }
     </script>
 </body>
-  </html>
+    </html>
