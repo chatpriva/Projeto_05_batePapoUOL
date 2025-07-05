@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LA CASA DAS BET</title>
+    <title>La Casa das Bet</title>
     <style>
         * {
             margin: 0;
@@ -19,32 +19,57 @@
         }
 
         .header {
-            background: linear-gradient(90deg, #dc2626 0%, #b91c1c 100%);
-            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+            padding: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 20px rgba(220, 38, 38, 0.3);
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo img {
-            height: 60px;
-            width: auto;
-        }
-
-        .logo-text {
             font-size: 2rem;
             font-weight: bold;
             color: #fff;
         }
 
-        .admin-btn {
+        .controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #dc2626;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #374151;
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+
+        .settings-btn {
             background: none;
             border: none;
             color: #fff;
@@ -55,8 +80,8 @@
             transition: all 0.3s ease;
         }
 
-        .admin-btn:hover {
-            background: rgba(255,255,255,0.1);
+        .settings-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
             transform: rotate(90deg);
         }
 
@@ -66,215 +91,71 @@
             padding: 2rem;
         }
 
-        .section {
-            margin-bottom: 3rem;
-        }
-
-        .section-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #dc2626;
-            border-bottom: 2px solid #dc2626;
-            padding-bottom: 0.5rem;
-        }
-
-        .surebet-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
         .surebet-card {
-            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-            border-radius: 15px;
-            padding: 0;
-            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            backdrop-filter: blur(10px);
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            color: #fff;
         }
 
         .surebet-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(220, 38, 38, 0.5);
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.2);
         }
 
-        .card-header {
-            padding: 1.5rem;
-            position: relative;
-        }
-
-        .calculator-icon {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            font-size: 1.5rem;
-            color: #fff;
+        .match-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
         }
 
         .match-title {
             font-size: 1.4rem;
             font-weight: bold;
-            color: #fff;
-            margin-bottom: 0.5rem;
+            color: #dc2626;
         }
 
         .match-date {
-            font-size: 1rem;
-            color: #fff;
-            margin-bottom: 1rem;
-        }
-
-        .sport-category {
-            font-size: 1rem;
-            color: #fff;
-            margin-bottom: 1rem;
-        }
-
-        .profit-info {
-            position: absolute;
-            top: 1rem;
-            right: 3.5rem;
-            text-align: right;
-        }
-
-        .profit-label {
+            color: #9ca3af;
             font-size: 0.9rem;
-            margin-bottom: 0.2rem;
-            color: #fff;
         }
 
-        .profit-value {
-            font-size: 1.2rem;
+        .odds-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .odd-item {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #dc2626;
+        }
+
+        .odd-house {
             font-weight: bold;
-            color: #fff;
-        }
-
-        .card-body {
-            background: #fff;
-            color: #000;
-            padding: 0;
-        }
-
-        .bet-row {
-            display: flex;
-            align-items: center;
-            padding: 1rem 1.5rem;
-            border-bottom: 1px solid #eee;
-        }
-
-        .bet-row:last-child {
-            border-bottom: none;
-        }
-
-        .house-name {
-            font-size: 1rem;
-            font-weight: bold;
-            color: #000;
-            min-width: 120px;
-        }
-
-        .bet-details {
-            flex: 1;
-            margin: 0 1rem;
-            text-align: center;
-        }
-
-        .bet-type {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 0.2rem;
+            color: #dc2626;
         }
 
         .odd-value {
             font-size: 1.2rem;
             font-weight: bold;
-            color: #000;
-            float: right;
+            margin: 0.5rem 0;
         }
 
-        .sport-footer {
-            background: #f8f9fa;
-            padding: 0.8rem 1.5rem;
-            text-align: center;
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .calculator {
-            background: #2a2a2a;
-            border-radius: 15px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 2px solid #dc2626;
-        }
-
-        .calc-form {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group label {
-            margin-bottom: 0.5rem;
-            color: #dc2626;
-            font-weight: bold;
-        }
-
-        .form-group input {
-            padding: 0.8rem;
-            border: 1px solid #555;
-            border-radius: 8px;
-            background: #333;
+        .profit {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: #fff;
-            font-size: 1rem;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #dc2626;
-        }
-
-        .calc-btn {
-            background: linear-gradient(90deg, #dc2626, #b91c1c);
-            color: #fff;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
             font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .calc-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(220, 38, 38, 0.4);
-        }
-
-        .calc-results {
-            background: #1f1f1f;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-            border: 1px solid #555;
-        }
-
-        .warning {
-            background: #fbbf24;
-            color: #000;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-            font-weight: bold;
+            display: inline-block;
         }
 
         .modal {
@@ -285,22 +166,58 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0, 0, 0, 0.8);
         }
 
         .modal-content {
-            background: #2a2a2a;
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
             margin: 5% auto;
             padding: 2rem;
-            border-radius: 15px;
-            max-width: 800px;
-            border: 2px solid #dc2626;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            border: 1px solid #dc2626;
+        }
+
+        .form-group {
+            margin: 1rem 0;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #374151;
+            border-radius: 8px;
+            background: #1f2937;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #dc2626;
+        }
+
+        .admin-panel {
+            display: none;
+            background: rgba(31, 41, 55, 0.9);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            border: 1px solid #dc2626;
         }
 
         .close {
             color: #aaa;
             float: right;
-            font-size: 2rem;
+            font-size: 28px;
             font-weight: bold;
             cursor: pointer;
         }
@@ -309,434 +226,337 @@
             color: #dc2626;
         }
 
-        .admin-form {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
+        .calculator {
+            background: rgba(31, 41, 55, 0.9);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            border: 1px solid #dc2626;
         }
 
-        .btn {
-            background: linear-gradient(90deg, #dc2626, #b91c1c);
+        .calc-result {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid #10b981;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .warning {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid #f59e0b;
+            color: #f59e0b;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .remove-btn {
+            background: #dc2626;
             color: #fff;
             border: none;
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(220, 38, 38, 0.4);
-        }
-
-        .btn-remove {
-            background: #dc2626;
             padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
             font-size: 0.9rem;
         }
 
-        .admin-list {
-            background: #1f1f1f;
-            border-radius: 8px;
-            padding: 1rem;
-            margin-top: 1rem;
-        }
-
-        .admin-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem;
-            border-bottom: 1px solid #333;
-        }
-
-        .admin-item:last-child {
-            border-bottom: none;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 3rem;
-            color: #888;
-        }
-
-        .empty-state i {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            color: #dc2626;
+        .remove-btn:hover {
+            background: #b91c1c;
         }
 
         @media (max-width: 768px) {
-            .header {
-                padding: 1rem;
-            }
-            
-            .logo {
-                font-size: 1.5rem;
-            }
-            
-            .container {
-                padding: 1rem;
-            }
-            
-            .surebet-grid {
+            .odds-container {
                 grid-template-columns: 1fr;
             }
             
-            .calc-form {
-                grid-template-columns: 1fr;
+            .match-info {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <div class="logo">
-            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iOTUiIGZpbGw9IiMxYTFhMWEiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxMCIvPgo8Y2lyY2xlIGN4PSIxMDAiIGN5PSI4MCIgcj0iNjAiIGZpbGw9IiMzMTU0NTEiLz4KPHN2ZyB4PSI0MCIgeT0iMzAiIHdpZHRoPSIxMjAiIGhlaWdodD0iMTAwIj4KPHBhdGggZD0iTTMwIDIwIEM0MCAzMCA2MCAzMCA3MCAyMCBDNzAgMzAgODAgMzAgOTAgMjAgTDkwIDgwIEw3MCA4MCBMNTM2MCA4MCBMNDM2MCA4MCBMNDM2MCA4MCBMNDM2MCA4MCBMNDM2MCA4MCBMNDM2MCA4MCAzMiA2MCAzMiA2MCAzMiA2MCAzMiA2MCAzMiA2MCAzMiA2MCAzMiA2MCAzMiA2MCBaIiBmaWxsPSIjZGMyNjI2Ii8+CjxjaXJjbGUgY3g9IjQ1IiBjeT0iNDAiIHI9IjMiIGZpbGw9IiNmZmYiLz4KPGNpcmNsZSBjeD0iNzUiIGN5PSI0MCIgcj0iMyIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJNNDAgNTAgQzQ1IDU1IDU1IDU1IDYwIDUwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPgo8L3N2Zz4KPHN2ZyB4PSI0MCIgeT0iNjAiIHdpZHRoPSIxMjAiIGhlaWdodD0iNDAiPgo8ZWxsaXBzZSBjeD0iNjAiIGN5PSIyMCIgcng9IjMwIiByeT0iMTUiIGZpbGw9IiNkZGM3OGEiLz4KPHN2ZyB4PSIyMCIgeT0iNSIgd2lkdGg9IjgwIiBoZWlnaHQ9IjMwIj4KPGNpcmNsZSBjeD0iMTUiIGN5PSIxNSIgcj0iOCIgZmlsbD0iI2ZmZDcwMCIvPgo8Y2lyY2xlIGN4PSIzNSIgY3k9IjE1IiByPSI2IiBmaWxsPSIjZmZkNzAwIi8+CjxjaXJjbGUgY3g9IjUwIiBjeT0iMTUiIHI9IjQiIGZpbGw9IiNmZmQ3MDAiLz4KPHN2ZyB4PSI1IiB5PSI1IiB3aWR0aD0iMzAiIGhlaWdodD0iMjAiPgo8Y2lyY2xlIGN4PSIxNSIgY3k9IjEwIiByPSI4IiBmaWxsPSIjZGMyNjI2IiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIvPgo8L3N2Zz4KPHN2ZyB4PSI0NSIgeT0iMTAiIHdpZHRoPSIyNSIgaGVpZ2h0PSIxMCI+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIyNSIgaGVpZ2h0PSIxMCIgZmlsbD0iI2ZmZiIgcng9IjIiLz4KPHN2ZyB4PSIyIiB5PSIyIiB3aWR0aD0iMjEiIGhlaWdodD0iNiI+Cjx0ZXh0IHg9IjEwIiB5PSI0IiBmb250LXNpemU9IjYiIGZpbGw9IiMwMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC13ZWlnaHQ9ImJvbGQiPisyNTA8L3RleHQ+Cjwvc3ZnPgo8L3N2Zz4KPC9zdmc+Cjwvc3ZnPgo8L3N2Zz4KPHN2ZyB4PSIwIiB5PSIxMzAiIHdpZHRoPSIyMDAiIGhlaWdodD0iNzAiPgo8cmVjdCB4PSIxMCIgeT0iMTAiIHdpZHRoPSIxODAiIGhlaWdodD0iNTAiIGZpbGw9IiMxYTFhMWEiIHJ4PSIxMCIvPgo8dGV4dCB4PSI0MCIgeT0iMzAiIGZvbnQtc2l6ZT0iMjAiIGZpbGw9IiNmZmYiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC13ZWlnaHQ9ImJvbGQiPkxBIENBU0E8L3RleHQ+Cjx0ZXh0IHg9IjQwIiB5PSI1MCIgZm9udC1zaXplPSIyMCIgZmlsbD0iI2ZmZiIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXdlaWdodD0iYm9sZCI+REFTIDx0c3BhbiBmaWxsPSIjZGMyNjI2Ij5CRVRQPC90c3Bhbj48L3RleHQ+Cjwvc3ZnPgo8L3N2Zz4=" alt="LA CASA DAS BET">
-            <div class="logo-text">LA CASA DAS BET</div>
+        <div class="logo">LA CASA DAS BET</div>
+        <div class="controls">
+            <button class="btn btn-primary" onclick="toggleCalculator()">Calculadora</button>
+            <button class="settings-btn" onclick="openPasswordModal()">⚙️</button>
         </div>
-        <button class="admin-btn" onclick="openAdminModal()">⚙️</button>
     </div>
 
     <div class="container">
-        <!-- Calculadora de Surebet -->
-        <div class="section">
-            <h2 class="section-title">Calculadora de Surebet</h2>
-            <div class="calculator">
-                <div class="calc-form">
-                    <div class="form-group">
-                        <label>Odd 1:</label>
-                        <input type="number" id="odd1" step="0.01" placeholder="Ex: 2.50">
-                    </div>
-                    <div class="form-group">
-                        <label>Odd 2:</label>
-                        <input type="number" id="odd2" step="0.01" placeholder="Ex: 1.80">
-                    </div>
-                    <div class="form-group">
-                        <label>Valor Total (R$):</label>
-                        <input type="number" id="totalValue" step="0.01" placeholder="Ex: 1000">
-                    </div>
-                    <div class="form-group">
-                        <button class="calc-btn" onclick="calculateSurebet()">Calcular</button>
-                    </div>
-                </div>
-                <div id="calcResults" class="calc-results" style="display: none;">
-                    <h3>Resultados:</h3>
-                    <p id="bet1Amount"></p>
-                    <p id="bet2Amount"></p>
-                    <p id="totalProfit"></p>
-                    <p id="profitPercentage"></p>
-                </div>
-                <div class="warning">
-                    ⚠️ AVISO: Não aposte valores quebrados para evitar limitações pelas casas de apostas!
-                </div>
+        <div id="surebets-container">
+            <!-- Surebets serão carregadas aqui -->
+        </div>
+
+        <div id="calculator" class="calculator" style="display: none;">
+            <h2>Calculadora de Surebet</h2>
+            <div class="form-group">
+                <label>Odd 1:</label>
+                <input type="number" id="calc-odd1" step="0.01" placeholder="Ex: 2.10">
+            </div>
+            <div class="form-group">
+                <label>Odd 2:</label>
+                <input type="number" id="calc-odd2" step="0.01" placeholder="Ex: 1.85">
+            </div>
+            <div class="form-group">
+                <label>Valor Total a Apostar (R$):</label>
+                <input type="number" id="calc-total" step="0.01" placeholder="Ex: 100">
+            </div>
+            <button class="btn btn-primary" onclick="calculateSurebet()">Calcular</button>
+            <div id="calc-result" class="calc-result" style="display: none;"></div>
+            <div class="warning">
+                <strong>⚠️ Atenção:</strong> Não aposte valores quebrados para evitar limitações das casas de apostas!
             </div>
         </div>
 
-        <!-- Lista de Surebets -->
-        <div class="section">
-            <h2 class="section-title">Surebets Disponíveis</h2>
-            <div id="surebetsList" class="surebet-grid">
-                <div class="empty-state">
-                    <div style="font-size: 4rem; margin-bottom: 1rem; color: #dc2626;">🎯</div>
-                    <h3>Nenhuma surebet disponível</h3>
-                    <p>As surebets aparecerão aqui em tempo real</p>
+        <div id="admin-panel" class="admin-panel">
+            <h2>Painel de Controle</h2>
+            <form id="surebet-form">
+                <div class="form-group">
+                    <label>Jogo:</label>
+                    <input type="text" id="match" required placeholder="Ex: Espanha vs Portugal">
                 </div>
-            </div>
+                <div class="form-group">
+                    <label>Data/Hora:</label>
+                    <input type="datetime-local" id="datetime" required>
+                </div>
+                <div class="form-group">
+                    <label>Odd 1:</label>
+                    <input type="number" id="odd1" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Casa 1:</label>
+                    <input type="text" id="house1" required placeholder="Ex: BET 7K">
+                </div>
+                <div class="form-group">
+                    <label>Tipo Aposta 1:</label>
+                    <input type="text" id="bet1" required placeholder="Ex: Acima 0.5 - escanteios 1º período 2º tempo">
+                </div>
+                <div class="form-group">
+                    <label>Odd 2:</label>
+                    <input type="number" id="odd2" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Casa 2:</label>
+                    <input type="text" id="house2" required placeholder="Ex: Sportingbet">
+                </div>
+                <div class="form-group">
+                    <label>Tipo Aposta 2:</label>
+                    <input type="text" id="bet2" required placeholder="Ex: Abaixo 0.5 - escanteios 1º período 2º tempo">
+                </div>
+                <div class="form-group">
+                    <label>Lucro (%):</label>
+                    <input type="number" id="profit" step="0.01" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Adicionar Surebet</button>
+            </form>
         </div>
     </div>
 
-    <!-- Modal do Admin -->
-    <div id="adminModal" class="modal">
+    <!-- Modal de Senha -->
+    <div id="password-modal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeAdminModal()">&times;</span>
-            <div id="passwordForm">
-                <h2>Acesso Administrativo</h2>
-                <div class="form-group">
-                    <label>Senha:</label>
-                    <input type="password" id="adminPassword" placeholder="Digite a senha">
-                </div>
-                <button class="btn" onclick="checkPassword()">Entrar</button>
+            <span class="close" onclick="closePasswordModal()">&times;</span>
+            <h2>Digite a Senha</h2>
+            <div class="form-group">
+                <input type="password" id="password-input" placeholder="Senha">
             </div>
-            <div id="adminPanel" style="display: none;">
-                <h2>Painel Administrativo</h2>
-                
-                <h3>Adicionar Nova Surebet</h3>
-                <div class="admin-form">
-                    <div class="form-group">
-                        <label>Jogo:</label>
-                        <input type="text" id="matchName" placeholder="Ex: Flamengo vs Corinthians">
-                    </div>
-                    <div class="form-group">
-                        <label>Data/Hora:</label>
-                        <input type="datetime-local" id="matchDate">
-                    </div>
-                    <div class="form-group">
-                        <label>Odd 1:</label>
-                        <input type="number" id="adminOdd1" step="0.01" placeholder="Ex: 2.50">
-                    </div>
-                    <div class="form-group">
-                        <label>Casa 1:</label>
-                        <input type="text" id="house1" placeholder="Ex: Bet365">
-                    </div>
-                    <div class="form-group">
-                        <label>Odd 2:</label>
-                        <input type="number" id="adminOdd2" step="0.01" placeholder="Ex: 1.80">
-                    </div>
-                    <div class="form-group">
-                        <label>Casa 2:</label>
-                        <input type="text" id="house2" placeholder="Ex: Betano">
-                    </div>
-                    <div class="form-group">
-                        <label>Lucro (%):</label>
-                        <input type="number" id="profit" step="0.01" placeholder="Ex: 5.5">
-                    </div>
-                    <div class="form-group">
-                        <label>Tipo de Aposta:</label>
-                        <input type="text" id="betType" placeholder="Ex: Futebol">
-                    </div>
-                </div>
-                <button class="btn" onclick="addSurebet()">Adicionar Surebet</button>
-                
-                <h3>Surebets Cadastradas</h3>
-                <div id="adminList" class="admin-list">
-                    <div class="empty-state">
-                        <p>Nenhuma surebet cadastrada</p>
-                    </div>
-                </div>
-            </div>
+            <button class="btn btn-primary" onclick="checkPassword()">Entrar</button>
         </div>
     </div>
 
     <script type="module">
-        // Firebase configuration
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js';
-        import { getDatabase, ref, push, onValue, remove } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js';
+        // Configuração do Firebase
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
 
         const firebaseConfig = {
-            apiKey: "AIzaSyArY5MJpAlRnQhWV3TYrsh9LYH9Sw2nAeo",
-            authDomain: "surebet-4916a.firebaseapp.com",
-            databaseURL: "https://surebet-4916a-default-rtdb.firebaseio.com",
-            projectId: "surebet-4916a",
-            storageBucket: "surebet-4916a.firebasestorage.app",
-            messagingSenderId: "975170682118",
-            appId: "1:975170682118:web:1a551a221f1436bd8f3287",
-            measurementId: "G-VQR0H34N9Q"
+            apiKey: "AIzaSyDGpAHia_wKIIeQJLIJUTH2FtjK9-4R_gc",
+            authDomain: "arbitragem-e6a2c.firebaseapp.com",
+            projectId: "arbitragem-e6a2c",
+            storageBucket: "arbitragem-e6a2c.appspot.com",
+            messagingSenderId: "623240011031",
+            appId: "1:623240011031:web:0c6f4e5e1a1e6f8e5c2b6c"
         };
 
         const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
+        const db = getFirestore(app);
 
-        // Global variables
-        window.surebetsData = {};
-        window.isAdminAuthenticated = false;
+        let isAdmin = false;
 
-        // Load surebets from Firebase
-        function loadSurebets() {
-            const surebetsRef = ref(database, 'surebets');
-            onValue(surebetsRef, (snapshot) => {
-                const data = snapshot.val();
-                window.surebetsData = data || {};
-                displaySurebets();
-                if (window.isAdminAuthenticated) {
-                    displayAdminList();
-                }
-            });
-        }
-
-        // Display surebets on the main page
-        function displaySurebets() {
-            const container = document.getElementById('surebetsList');
-            const surebets = Object.entries(window.surebetsData);
-            
-            if (surebets.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <div style="font-size: 4rem; margin-bottom: 1rem; color: #dc2626;">🎯</div>
-                        <h3>Nenhuma surebet disponível</h3>
-                        <p>As surebets aparecerão aqui em tempo real</p>
-                    </div>
-                `;
-                return;
-            }
-
-            container.innerHTML = surebets.map(([id, surebet]) => `
-                <div class="surebet-card">
-                    <div class="card-header">
-                        <div class="calculator-icon">🧮</div>
-                        <div class="profit-info">
-                            <div class="profit-label">Lucro</div>
-                            <div class="profit-label">de</div>
-                            <div class="profit-value">${surebet.profit}%</div>
-                        </div>
-                        <div class="match-title">${surebet.matchName}</div>
-                        <div class="match-date">${new Date(surebet.matchDate).toLocaleDateString('pt-BR')} ${new Date(surebet.matchDate).toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit'})}</div>
-                        <div class="sport-category">${surebet.betType}</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="bet-row">
-                            <div class="house-name">${surebet.house1}</div>
-                            <div class="bet-details">
-                                <div class="bet-type">${surebet.betDetails1 || 'Acima 0.5 - escanteios 1º período 2º tempo'}</div>
-                            </div>
-                            <div class="odd-value">${surebet.odd1} (odd)</div>
-                        </div>
-                        <div class="bet-row">
-                            <div class="house-name">${surebet.house2}</div>
-                            <div class="bet-details">
-                                <div class="bet-type">${surebet.betDetails2 || 'Abaixo 0.5 - escanteios 1º período 2º tempo'}</div>
-                            </div>
-                            <div class="odd-value">${surebet.odd2} (odd)</div>
-                        </div>
-                        <div class="sport-footer">
-                            ${surebet.betType}
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Display admin list
-        function displayAdminList() {
-            const container = document.getElementById('adminList');
-            const surebets = Object.entries(window.surebetsData);
-            
-            if (surebets.length === 0) {
-                container.innerHTML = '<div class="empty-state"><p>Nenhuma surebet cadastrada</p></div>';
-                return;
-            }
-
-            container.innerHTML = surebets.map(([id, surebet]) => `
-                <div class="admin-item">
-                    <div>
-                        <strong>${surebet.matchName}</strong><br>
-                        ${surebet.house1} (${surebet.odd1}) vs ${surebet.house2} (${surebet.odd2}) - ${surebet.profit}%
-                    </div>
-                    <button class="btn btn-remove" onclick="removeSurebet('${id}')">Remover</button>
-                </div>
-            `).join('');
-        }
-
-        // Calculator functions
-        window.calculateSurebet = function() {
-            const odd1 = parseFloat(document.getElementById('odd1').value);
-            const odd2 = parseFloat(document.getElementById('odd2').value);
-            const totalValue = parseFloat(document.getElementById('totalValue').value);
-
-            if (!odd1 || !odd2 || !totalValue) {
-                alert('Por favor, preencha todos os campos!');
-                return;
-            }
-
-            const impliedProb1 = 1 / odd1;
-            const impliedProb2 = 1 / odd2;
-            const totalImplied = impliedProb1 + impliedProb2;
-
-            if (totalImplied >= 1) {
-                alert('Essas odds não formam uma surebet!');
-                return;
-            }
-
-            const bet1Amount = Math.round((totalValue * impliedProb1) / totalImplied);
-            const bet2Amount = Math.round((totalValue * impliedProb2) / totalImplied);
-            const totalProfit = Math.min(bet1Amount * odd1, bet2Amount * odd2) - totalValue;
-            const profitPercentage = (totalProfit / totalValue) * 100;
-
-            document.getElementById('bet1Amount').textContent = `Apostar R$ ${bet1Amount} na Odd ${odd1}`;
-            document.getElementById('bet2Amount').textContent = `Apostar R$ ${bet2Amount} na Odd ${odd2}`;
-            document.getElementById('totalProfit').textContent = `Lucro Total: R$ ${totalProfit.toFixed(2)}`;
-            document.getElementById('profitPercentage').textContent = `Percentual de Lucro: ${profitPercentage.toFixed(2)}%`;
-            
-            document.getElementById('calcResults').style.display = 'block';
-        };
-
-        // Admin functions
-        window.openAdminModal = function() {
-            document.getElementById('adminModal').style.display = 'block';
-        };
-
-        window.closeAdminModal = function() {
-            document.getElementById('adminModal').style.display = 'none';
-            document.getElementById('passwordForm').style.display = 'block';
-            document.getElementById('adminPanel').style.display = 'none';
-            document.getElementById('adminPassword').value = '';
-            window.isAdminAuthenticated = false;
-        };
-
+        // Função para verificar senha
         window.checkPassword = function() {
-            const password = document.getElementById('adminPassword').value;
+            const password = document.getElementById('password-input').value;
             if (password === '37511158') {
-                document.getElementById('passwordForm').style.display = 'none';
-                document.getElementById('adminPanel').style.display = 'block';
-                window.isAdminAuthenticated = true;
-                displayAdminList();
+                isAdmin = true;
+                document.getElementById('admin-panel').style.display = 'block';
+                closePasswordModal();
+                alert('Acesso liberado!');
             } else {
                 alert('Senha incorreta!');
             }
         };
 
-        window.addSurebet = function() {
-            const matchName = document.getElementById('matchName').value;
-            const matchDate = document.getElementById('matchDate').value;
-            const odd1 = parseFloat(document.getElementById('adminOdd1').value);
-            const house1 = document.getElementById('house1').value;
-            const odd2 = parseFloat(document.getElementById('adminOdd2').value);
-            const house2 = document.getElementById('house2').value;
-            const betType = document.getElementById('betType').value;
-            const betDetails1 = document.getElementById('betDetails1').value;
-            const betDetails2 = document.getElementById('betDetails2').value;
-            const profit = parseFloat(document.getElementById('profit').value);
+        // Função para abrir modal de senha
+        window.openPasswordModal = function() {
+            document.getElementById('password-modal').style.display = 'block';
+        };
 
-            if (!matchName || !matchDate || !odd1 || !house1 || !odd2 || !house2 || !betType || !profit) {
-                alert('Por favor, preencha todos os campos obrigatórios!');
+        // Função para fechar modal de senha
+        window.closePasswordModal = function() {
+            document.getElementById('password-modal').style.display = 'none';
+            document.getElementById('password-input').value = '';
+        };
+
+        // Função para toggle da calculadora
+        window.toggleCalculator = function() {
+            const calc = document.getElementById('calculator');
+            calc.style.display = calc.style.display === 'none' ? 'block' : 'none';
+        };
+
+        // Função para calcular surebet
+        window.calculateSurebet = function() {
+            const odd1 = parseFloat(document.getElementById('calc-odd1').value);
+            const odd2 = parseFloat(document.getElementById('calc-odd2').value);
+            const total = parseFloat(document.getElementById('calc-total').value);
+
+            if (!odd1 || !odd2 || !total) {
+                alert('Preencha todos os campos!');
+                return;
+            }
+
+            const implied1 = 1 / odd1;
+            const implied2 = 1 / odd2;
+            const totalImplied = implied1 + implied2;
+
+            if (totalImplied >= 1) {
+                alert('Estas odds não formam uma surebet!');
+                return;
+            }
+
+            const stake1 = (total * implied1) / totalImplied;
+            const stake2 = (total * implied2) / totalImplied;
+            const profit = total - (total * totalImplied);
+            const profitPercent = (profit / total) * 100;
+
+            document.getElementById('calc-result').innerHTML = `
+                <h3>Resultado:</h3>
+                <p><strong>Apostar na Odd 1:</strong> R$ ${Math.round(stake1)}</p>
+                <p><strong>Apostar na Odd 2:</strong> R$ ${Math.round(stake2)}</p>
+                <p><strong>Lucro Garantido:</strong> R$ ${profit.toFixed(2)} (${profitPercent.toFixed(2)}%)</p>
+            `;
+            document.getElementById('calc-result').style.display = 'block';
+        };
+
+        // Função para adicionar surebet
+        document.getElementById('surebet-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if (!isAdmin) {
+                alert('Acesso negado!');
                 return;
             }
 
             const surebet = {
-                matchName,
-                matchDate,
-                odd1,
-                house1,
-                odd2,
-                house2,
-                betType,
-                betDetails1,
-                betDetails2,
-                profit,
-                createdAt: new Date().toISOString()
+                match: document.getElementById('match').value,
+                datetime: document.getElementById('datetime').value,
+                odd1: parseFloat(document.getElementById('odd1').value),
+                house1: document.getElementById('house1').value,
+                bet1: document.getElementById('bet1').value,
+                odd2: parseFloat(document.getElementById('odd2').value),
+                house2: document.getElementById('house2').value,
+                bet2: document.getElementById('bet2').value,
+                profit: parseFloat(document.getElementById('profit').value),
+                timestamp: new Date()
             };
 
-            const surebetsRef = ref(database, 'surebets');
-            push(surebetsRef, surebet);
+            try {
+                await addDoc(collection(db, 'surebets'), surebet);
+                alert('Surebet adicionada com sucesso!');
+                document.getElementById('surebet-form').reset();
+            } catch (error) {
+                console.error('Erro ao adicionar surebet:', error);
+                alert('Erro ao adicionar surebet!');
+            }
+        });
 
-            // Clear form
-            document.getElementById('matchName').value = '';
-            document.getElementById('matchDate').value = '';
-            document.getElementById('adminOdd1').value = '';
-            document.getElementById('house1').value = '';
-            document.getElementById('adminOdd2').value = '';
-            document.getElementById('house2').value = '';
-            document.getElementById('betType').value = '';
-            document.getElementById('betDetails1').value = '';
-            document.getElementById('betDetails2').value = '';
-            document.getElementById('profit').value = '';
+        // Função para remover surebet
+        window.removeSurebet = async function(id) {
+            if (!isAdmin) {
+                alert('Acesso negado!');
+                return;
+            }
 
-            alert('Surebet adicionada com sucesso!');
-        };
-
-        window.removeSurebet = function(id) {
             if (confirm('Tem certeza que deseja remover esta surebet?')) {
-                const surebetRef = ref(database, `surebets/${id}`);
-                remove(surebetRef);
+                try {
+                    await deleteDoc(doc(db, 'surebets', id));
+                    alert('Surebet removida com sucesso!');
+                } catch (error) {
+                    console.error('Erro ao remover surebet:', error);
+                    alert('Erro ao remover surebet!');
+                }
             }
         };
 
-        // Initialize
-        loadSurebets();
+        // Função para renderizar surebets
+        function renderSurebets(surebets) {
+            const container = document.getElementById('surebets-container');
+            container.innerHTML = '';
+
+            surebets.forEach(surebet => {
+                const date = new Date(surebet.datetime);
+                const formattedDate = date.toLocaleDateString('pt-BR') + ' ' + date.toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit'});
+
+                const surebetHtml = `
+                    <div class="surebet-card">
+                        <div class="match-info">
+                            <div class="match-title">${surebet.match}</div>
+                            <div class="match-date">${formattedDate}</div>
+                        </div>
+                        <div class="odds-container">
+                            <div class="odd-item">
+                                <div class="odd-house">${surebet.house1}</div>
+                                <div class="odd-value">${surebet.odd1.toFixed(2)} (odd)</div>
+                                <div>${surebet.bet1}</div>
+                            </div>
+                            <div class="odd-item">
+                                <div class="odd-house">${surebet.house2}</div>
+                                <div class="odd-value">${surebet.odd2.toFixed(2)} (odd)</div>
+                                <div>${surebet.bet2}</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div class="profit">Lucro: ${surebet.profit.toFixed(2)}%</div>
+                            ${isAdmin ? `<button class="remove-btn" onclick="removeSurebet('${surebet.id}')">Remover</button>` : ''}
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += surebetHtml;
+            });
+        }
+
+        // Listener em tempo real para as surebets
+        onSnapshot(collection(db, 'surebets'), (snapshot) => {
+            const surebets = [];
+            snapshot.forEach((doc) => {
+                surebets.push({ id: doc.id, ...doc.data() });
+            });
+            
+            // Ordenar por data
+            surebets.sort((a, b) => new Date(a.datetime) - new Date(b.datetime));
+            renderSurebets(surebets);
+        });
+
+        // Fechar modal ao clicar fora
+        window.onclick = function(event) {
+            const modal = document.getElementById('password-modal');
+            if (event.target === modal) {
+                closePasswordModal();
+            }
+        };
     </script>
 </body>
-  </html>
+    </html>
