@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LA CASA DAS BET - Surebets Profissionais</title>
     <style>
-        /* Seu CSS existente - SEM ALTERAÇÕES NESTA SEÇÃO */
+        /* --- CSS RESET & BASE --- */
         * {
             margin: 0;
             padding: 0;
@@ -17,8 +17,11 @@
             background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
             color: #fff;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
+        /* --- HEADER --- */
         .header {
             background: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);
             padding: 20px 0;
@@ -39,9 +42,15 @@
             font-size: 2.5em;
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            color: #fff; /* Garante que o logo seja branco */
         }
 
-        .settings-btn {
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .settings-btn, .calc-header-btn {
             background: rgba(255,255,255,0.2);
             border: none;
             color: white;
@@ -51,19 +60,25 @@
             font-size: 1.5em;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .settings-btn:hover {
+        .settings-btn:hover, .calc-header-btn:hover {
             background: rgba(255,255,255,0.3);
             transform: rotate(90deg);
         }
 
+        /* --- MAIN CONTENT CONTAINER --- */
         .container {
             max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+            margin: 20px auto;
+            padding: 0 20px;
+            flex-grow: 1; /* Faz o container principal crescer e ocupar espaço */
         }
 
+        /* --- TABS NAVIGATION --- */
         .tab-container {
             display: flex;
             gap: 10px;
@@ -82,6 +97,10 @@
             font-weight: 500;
         }
 
+        .tab-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
         .tab-btn.active {
             background: #c41e3a;
             box-shadow: 0 4px 15px rgba(196, 30, 58, 0.4);
@@ -89,12 +108,22 @@
 
         .tab-content {
             display: none;
+            padding: 20px 0;
         }
 
         .tab-content.active {
             display: block;
         }
 
+        h2 {
+            color: #c41e3a;
+            margin-bottom: 20px;
+            font-size: 2em;
+            text-align: center;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        /* --- SUREBETS GRID --- */
         .surebets-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -110,6 +139,7 @@
             transition: all 0.3s ease;
             overflow: hidden;
             position: relative;
+            color: #000; /* Garante que o texto dentro do card seja legível */
         }
 
         .surebet-card:hover {
@@ -121,26 +151,24 @@
             background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
             padding: 20px;
             position: relative;
+            color: #000;
         }
 
         .match-title {
             font-size: 1.4em;
             font-weight: bold;
-            color: #000;
             margin-bottom: 10px;
             text-align: left;
         }
 
         .match-datetime {
             font-size: 1.1em;
-            color: #000;
             margin-bottom: 15px;
             font-weight: 500;
         }
 
         .sport-category {
             font-size: 1.1em;
-            color: #000;
             font-weight: 500;
         }
 
@@ -153,18 +181,17 @@
             border-radius: 12px;
             text-align: center;
             backdrop-filter: blur(10px);
+            color: #000;
         }
 
         .profit-label {
             font-size: 0.9em;
-            color: #000;
             margin-bottom: 2px;
         }
 
         .profit-value {
             font-size: 1.2em;
             font-weight: bold;
-            color: #000;
         }
 
         .calc-icon {
@@ -196,7 +223,6 @@
         .house-name {
             font-size: 1.1em;
             font-weight: bold;
-            color: #000;
             min-width: 120px;
         }
 
@@ -211,7 +237,6 @@
         .odd-value {
             font-size: 1.2em;
             font-weight: bold;
-            color: #000;
             min-width: 80px;
             text-align: right;
         }
@@ -225,6 +250,19 @@
             font-weight: 500;
         }
 
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+            grid-column: 1 / -1; /* Ocupa todas as colunas no grid */
+        }
+
+        .empty-state h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        /* --- MODAL (PASSWORD) --- */
         .modal {
             display: none;
             position: fixed;
@@ -248,6 +286,18 @@
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             border: 2px solid #c41e3a;
             min-width: 400px;
+            max-width: 90%;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: #c41e3a;
+            font-size: 1.5em;
+            cursor: pointer;
         }
 
         .password-input {
@@ -262,28 +312,7 @@
             text-align: center;
         }
 
-        .btn {
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);
-            border: none;
-            color: white;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1em;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            margin: 5px;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(196, 30, 58, 0.4);
-        }
-
-        .btn-danger {
-            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-        }
-
+        /* --- ADMIN PANEL --- */
         .admin-panel {
             display: none;
             background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
@@ -326,6 +355,7 @@
             gap: 15px;
         }
 
+        /* --- CALCULATOR --- */
         .calculator {
             background: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
             padding: 20px;
@@ -339,28 +369,34 @@
             border-radius: 10px;
             margin-top: 15px;
             text-align: center;
+            color: #000; /* Garante que o texto seja legível */
         }
 
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #666;
+        .calc-result h3, .calc-result p {
+            color: #000;
         }
 
-        .empty-state h3 {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            background: none;
+        /* --- BUTTONS GENERAL --- */
+        .btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);
             border: none;
-            color: #c41e3a;
-            font-size: 1.5em;
+            color: white;
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 1em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(196, 30, 58, 0.4);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
         }
 
         .remove-btn {
@@ -376,12 +412,14 @@
             font-size: 0.8em;
             opacity: 0;
             transition: opacity 0.3s ease;
+            z-index: 10; /* Garante que esteja acima de outros elementos do card */
         }
 
         .surebet-card:hover .remove-btn {
             opacity: 1;
         }
 
+        /* --- RESPONSIVE ADJUSTMENTS --- */
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
@@ -405,6 +443,10 @@
                 gap: 10px;
                 text-align: center;
             }
+            .modal-content {
+                min-width: unset;
+                width: 95%;
+            }
         }
     </style>
 </head>
@@ -412,14 +454,17 @@
     <div class="header">
         <div class="header-content">
             <div class="logo">🎭 LA CASA DAS BET</div>
-            <button class="settings-btn" onclick="openPasswordModal()">⚙️</button>
+            <div class="header-buttons">
+                <button class="calc-header-btn" onclick="showTabFromButton(event, 'calculator')">🧮</button>
+                <button class="settings-btn" onclick="openPasswordModal()">⚙️</button>
+            </div>
         </div>
     </div>
 
     <div class="container">
         <div class="tab-container">
-            <button class="tab-btn active" onclick="showTab(event, 'surebets')">📊 Surebets</button>
-            <button class="tab-btn" onclick="showTab(event, 'calculator')">🧮 Calculadora</button>
+            <button class="tab-btn active" id="surebets-tab-btn" onclick="showTab(event, 'surebets')">📊 Surebets</button>
+            <button class="tab-btn" id="calculator-tab-btn" onclick="showTab(event, 'calculator')">🧮 Calculadora</button>
         </div>
 
         <div id="admin-panel" class="admin-panel">
@@ -525,12 +570,12 @@
     </div>
 
     <script type="module">
-        // Importa as funções necessárias do Firebase SDK 
+        // --- FIREBASE CONFIGURATION & INITIALIZATION ---
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-analytics.js";
-        import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"; // Importa Realtime Database
+        import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js";
 
-        // Sua configuração do Firebase 
+        // SUA CONFIGURAÇÃO DO FIREBASE (NÃO MODIFICAR ESTE BLOCO)
         const firebaseConfig = {
             apiKey: "AIzaSyArY5MJpAlRnQhWV3TYrsh9LYH9Sw2nAeo",
             authDomain: "surebet-4916a.firebaseapp.com",
@@ -542,39 +587,46 @@
             measurementId: "G-VQR0H34N9Q"
         };
 
-        // Inicializa o Firebase 
         const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app); // Inicializa o Analytics
-
-        // Inicializa o Realtime Database e obtém uma referência para o nó 'surebets' 
+        const analytics = getAnalytics(app);
         const database = getDatabase(app);
         const surebetsRef = ref(database, 'surebets');
 
+        // --- GLOBAL VARIABLES ---
         let surebets = []; // Array que armazenará as surebets do Firebase
         let isAdminMode = false;
 
-        // Função para mostrar/ocultar tabs 
+        // --- NAVIGATION & UI CONTROL FUNCTIONS ---
         function showTab(event, tabName) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
             
-            event.target.classList.add('active');
+            if (event && event.target) { // Se o evento veio de um clique de botão de tab
+                event.target.classList.add('active');
+            } else { // Se for chamado programaticamente (como do novo botão no header)
+                const targetBtn = document.getElementById(tabName + '-tab-btn');
+                if (targetBtn) {
+                    targetBtn.classList.add('active');
+                }
+            }
+
             document.getElementById(tabName + '-tab').classList.add('active');
         }
 
-        // Função para abrir modal de senha 
+        function showTabFromButton(event, tabName) {
+            showTab(event, tabName);
+        }
+
         function openPasswordModal() {
             document.getElementById('password-modal').style.display = 'block';
             document.getElementById('password-input').focus();
         }
 
-        // Função para fechar modal de senha 
         function closePasswordModal() {
             document.getElementById('password-modal').style.display = 'none';
             document.getElementById('password-input').value = '';
         }
 
-        // Função para verificar senha 
         function checkPassword() {
             const password = document.getElementById('password-input').value;
             // ATENÇÃO: Esta é uma senha fixa no código, MUITO INSEGURO para uso real.
@@ -588,7 +640,6 @@
             }
         }
 
-        // Função para mostrar painel administrativo 
         function showAdminPanel() {
             isAdminMode = true;
             document.getElementById('admin-panel').style.display = 'block';
@@ -596,14 +647,13 @@
             renderSurebets(); // Re-renderizar para mostrar botões de remover
         }
 
-        // Função para ocultar painel administrativo 
         function hideAdminPanel() {
             isAdminMode = false;
             document.getElementById('admin-panel').style.display = 'none';
             renderSurebets(); // Re-renderizar para ocultar botões de remover
         }
 
-        // Função para renderizar surebets 
+        // --- SUREBET RENDERING & DATA MANAGEMENT FUNCTIONS ---
         function renderSurebets() {
             const container = document.getElementById('surebets-container');
             if (surebets.length === 0) {
@@ -646,7 +696,6 @@
             `).join('');
         }
 
-        // Função para formatar data/hora 
         function formatDateTime(datetime) {
             const date = new Date(datetime);
             return date.toLocaleString('pt-BR', {
@@ -658,7 +707,6 @@
             });
         }
 
-        // Função para adicionar surebet (AGORA USA FIREBASE REALTIME DATABASE) 
         function addSurebet(event) {
             event.preventDefault();
             const surebetData = {
@@ -672,10 +720,9 @@
                 market2: document.getElementById('market2').value,
                 odd2: parseFloat(document.getElementById('odd2').value),
                 profit: parseFloat(document.getElementById('profit').value),
-                createdAt: new Date().toISOString() // Adiciona um timestamp para ordenação
+                createdAt: new Date().toISOString()
             };
 
-            // Usa push() para adicionar um novo registro ao Firebase, gerando uma chave única 
             push(surebetsRef, surebetData)
                 .then(() => {
                     document.getElementById('surebet-form').reset();
@@ -687,10 +734,8 @@
                 });
         }
 
-        // Função para remover surebet (AGORA USA FIREBASE REALTIME DATABASE) 
         function removeSurebet(surebetId) {
             if (confirm('❓ Tem certeza que deseja remover esta surebet?')) {
-                // Cria uma referência específica para o item a ser removido pelo seu ID 
                 const itemRef = ref(database, `surebets/${surebetId}`);
                 remove(itemRef)
                     .then(() => {
@@ -703,22 +748,20 @@
             }
         }
 
-        // NOVO: Configurar o listener em tempo real para carregar e atualizar as surebets 
+        // --- REALTIME DATABASE LISTENER ---
         onValue(surebetsRef, (snapshot) => {
-            const data = snapshot.val(); // Obtém todos os dados do nó 'surebets'
+            const data = snapshot.val();
             const surebetsArray = [];
             for (let id in data) {
-                // Para cada item, adiciona o ID do Firebase junto com os dados 
                 surebetsArray.push({ id, ...data[id] });
             }
             
-            // Opcional: Ordenar as surebets (ex: por data de criação decrescente) 
             surebets = surebetsArray.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
             
-            renderSurebets(); // Renderiza o HTML com os dados atualizados 
+            renderSurebets();
         });
 
-        // Função para calcular surebet 
+        // --- CALCULATOR FUNCTIONS ---
         function calculateSurebet() {
             const odd1 = parseFloat(document.getElementById('calc-odd1').value);
             const odd2 = parseFloat(document.getElementById('calc-odd2').value);
@@ -729,7 +772,6 @@
                 return;
             }
 
-            // Calcular se é surebet 
             const impliedProb1 = 1 / odd1;
             const impliedProb2 = 1 / odd2;
             const totalProb = impliedProb1 + impliedProb2;
@@ -738,13 +780,11 @@
                 return;
             }
 
-            // Calcular distribuição ideal 
             const stake1 = (total * impliedProb1) / totalProb;
             const stake2 = (total * impliedProb2) / totalProb;
             const profit = total - (stake1 + stake2);
             const profitPercent = (profit / total) * 100;
 
-            // Mostrar resultado 
             document.getElementById('calc-result').style.display = 'block';
             document.getElementById('calc-output').innerHTML = `
                 <h4>💰 Distribuição Ideal:</h4>
@@ -754,24 +794,27 @@
             `;
         }
 
-        // Event listeners 
+        // --- EVENT LISTENERS ---
         document.getElementById('surebet-form').addEventListener('submit', addSurebet);
-        // Permitir Enter no campo de senha 
         document.getElementById('password-input').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 checkPassword();
             }
         });
-        // Fechar modal ao clicar fora 
         document.getElementById('password-modal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closePasswordModal();
             }
         });
         
-        // A chamada de renderSurebets() inicial é feita pelo onValue do Firebase
-        // que busca os dados e renderiza assim que a página carrega.
-        // Você pode remover a linha `renderSurebets();` que estava no final do seu script original.
+        // Atribui IDs aos botões de aba para serem referenciados na função showTab
+        document.getElementById('surebets-tab-btn').onclick = (event) => showTab(event, 'surebets');
+        document.getElementById('calculator-tab-btn').onclick = (event) => showTab(event, 'calculator');
+
+        // Inicializa mostrando a aba de surebets
+        document.addEventListener('DOMContentLoaded', () => {
+            showTab(null, 'surebets'); // Chama sem evento inicial
+        });
     </script>
 </body>
-            </html>
+                </html>
