@@ -75,27 +75,6 @@
             .calc-icon { display: none; }
         }
     </style>
-
-<!-- Firebase App (the core Firebase SDK) -->
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
-
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyArY5MJpAlRnQhWV3TYrsh9LYH9Sw2nAeo",
-    authDomain: "surebet-4916a.firebaseapp.com",
-    databaseURL: "https://surebet-4916a-default-rtdb.firebaseio.com",
-    projectId: "surebet-4916a",
-    storageBucket: "surebet-4916a.firebasestorage.app",
-    messagingSenderId: "975170682118",
-    appId: "1:975170682118:web:1a551a221f1436bd8f3287",
-    measurementId: "G-VQR0H34N9Q"
-  };
-
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
-</script>
-
 </head>
 <body>
     <div class="header">
@@ -221,11 +200,34 @@
         <span id="notification-text"></span>
     </div>
 
-    <script>
-        let surebets = {}, isAdminMode = false, isConnected = false;
-        
-        setTimeout(() => updateConnectionStatus(true), 2000);
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 
+    <script>
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyArY5MJpAlRnQhWV3TYrsh9LYH9Sw2nAeo",
+            authDomain: "surebet-4916a.firebaseapp.com",
+            databaseURL: "https://surebet-4916a-default-rtdb.firebaseio.com",
+            projectId: "surebet-4916a",
+            storageBucket: "surebet-4916a.firebasestorage.app",
+            messagingSenderId: "975170682118",
+            appId: "1:975170682118:web:1a551a221f1436bd8f3287",
+            measurementId: "G-VQR0H34N9Q"
+        };
+
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+        const surebetRef = db.ref("surebets");
+
+        // Variáveis globais
+        let surebets = {};
+        let isAdminMode = false;
+        let isConnected = false;
+
+        // Função para mostrar notificações
         function showNotification(message, type = 'success') {
             const notification = document.getElementById('notification');
             const notificationText = document.getElementById('notification-text');
@@ -235,32 +237,12 @@
             setTimeout(() => notification.classList.remove('show'), 3000);
         }
 
-        
+        // Função para atualizar status de conexão
         function updateConnectionStatus(connected) {
             isConnected = connected;
             const statusDot = document.getElementById('status-dot');
             const statusText = document.getElementById('status-text');
-            if (connected) {
-                statusDot.classList.remove('disconnected');
-                statusText.textContent = 'Online';
-                showNotification('✅ Conectado com sucesso!');
-
-                // 🔄 Lê as surebets do Firebase em tempo real
-                surebetRef.on("value", (snapshot) => {
-                    const data = snapshot.val() || {};
-                    surebets = data;
-                    renderSurebets();
-                });
-
-            } else {
-                statusDot.classList.add('disconnected');
-                statusText.textContent = 'Desconectado';
-            }
-        }
-
-            isConnected = connected;
-            const statusDot = document.getElementById('status-dot');
-            const statusText = document.getElementById('status-text');
+            
             if (connected) {
                 statusDot.classList.remove('disconnected');
                 statusText.textContent = 'Online';
@@ -271,13 +253,25 @@
             }
         }
 
+        // Simular conexão após 2 segundos
+        setTimeout(() => {
+            updateConnectionStatus(true);
+        }, 2000);
+
+        // Função para alternar entre abas
         function showTab(tabName) {
+            // Remove classe active de todos os botões e conteúdos
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Adiciona classe active ao botão clicado
             event.target.classList.add('active');
+            
+            // Mostra o conteúdo da aba
             document.getElementById(tabName + '-tab').classList.add('active');
         }
 
+        // Funções do modal de senha
         function openPasswordModal() {
             document.getElementById('password-modal').style.display = 'block';
             document.getElementById('password-input').focus();
@@ -300,6 +294,7 @@
             }
         }
 
+        // Funções do painel administrativo
         function showAdminPanel() {
             isAdminMode = true;
             document.getElementById('admin-panel').style.display = 'block';
@@ -315,6 +310,7 @@
             renderSurebets();
         }
 
+        // Função para renderizar surebets
         function renderSurebets() {
             const container = document.getElementById('surebets-container');
             const surebetsArray = Object.entries(surebets);
@@ -341,12 +337,12 @@
                         <div class="bet-row">
                             <div class="house-name">${surebet.house1}</div>
                             <div class="bet-description">${surebet.market1}</div>
-                            <div class="odd-value">${surebet.odd1} (odd)</div>
+                            <div class="odd-value">${surebet.odd1}</div>
                         </div>
                         <div class="bet-row">
                             <div class="house-name">${surebet.house2}</div>
                             <div class="bet-description">${surebet.market2}</div>
-                            <div class="odd-value">${surebet.odd2} (odd)</div>
+                            <div class="odd-value">${surebet.odd2}</div>
                         </div>
                     </div>
                     <div class="sport-footer">${surebet.sport}</div>
@@ -354,18 +350,21 @@
             `).join('');
         }
 
+        // Função para formatar data/hora
         function formatDateTime(datetime) {
             return new Date(datetime).toLocaleString('pt-BR', {
-                day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
             });
         }
 
-        function generateId() {
-            return Date.now().toString(36) + Math.random().toString(36).substr(2);
-        }
-
+        // Função para adicionar surebet
         function addSurebet(event) {
             event.preventDefault();
+            
             if (!isConnected) {
                 showNotification('❌ Sem conexão com o servidor!', 'error');
                 return;
@@ -385,24 +384,39 @@
                 timestamp: Date.now()
             };
 
-            surebets[generateId()] = surebet;
-            document.getElementById('surebet-form').reset();
-            renderSurebets();
-            showNotification('✅ Surebet adicionada com sucesso!');
+            // Adicionar no Firebase
+            const newKey = surebetRef.push().key;
+            surebetRef.child(newKey).set(surebet, (error) => {
+                if (!error) {
+                    document.getElementById('surebet-form').reset();
+                    showNotification('✅ Surebet adicionada com sucesso!');
+                } else {
+                    showNotification('❌ Erro ao salvar!', 'error');
+                    console.error('Erro Firebase:', error);
+                }
+            });
         }
 
+        // Função para remover surebet
         function removeSurebet(key) {
             if (!isConnected) {
                 showNotification('❌ Sem conexão com o servidor!', 'error');
                 return;
             }
+            
             if (confirm('❓ Tem certeza que deseja remover esta surebet?')) {
-                delete surebets[key];
-                renderSurebets();
-                showNotification('🗑️ Surebet removida com sucesso!');
+                surebetRef.child(key).remove((error) => {
+                    if (!error) {
+                        showNotification('🗑️ Surebet removida com sucesso!');
+                    } else {
+                        showNotification('❌ Erro ao remover!', 'error');
+                        console.error('Erro Firebase:', error);
+                    }
+                });
             }
         }
 
+        // Função da calculadora
         function calculateSurebet() {
             const odd1 = parseFloat(document.getElementById('calc-odd1').value);
             const odd2 = parseFloat(document.getElementById('calc-odd2').value);
@@ -441,72 +455,29 @@
             resultDiv.scrollIntoView({ behavior: 'smooth' });
         }
 
+        // Listener para dados do Firebase em tempo real
+        surebetRef.on("value", (snapshot) => {
+            const data = snapshot.val() || {};
+            surebets = data;
+            renderSurebets();
+        }, (error) => {
+            console.error('Erro ao ler dados do Firebase:', error);
+            showNotification('❌ Erro ao carregar dados!', 'error');
+        });
+
+        // Event listeners
         document.getElementById('surebet-form').addEventListener('submit', addSurebet);
+        
         document.getElementById('password-input').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') checkPassword();
         });
+        
         document.getElementById('password-modal').addEventListener('click', function(e) {
             if (e.target === this) closePasswordModal();
         });
 
+        // Inicializar renderização
         renderSurebets();
     </script>
-
-<script>
-  const surebetRef = db.ref("surebets");
-
-  // Adicionar uma nova surebet no Firebase
-  function addSurebet(event) {
-    event.preventDefault();
-    if (!isConnected) {
-        showNotification('❌ Sem conexão com o servidor!', 'error');
-        return;
-    }
-
-    const surebet = {
-        match: document.getElementById('match').value,
-        datetime: document.getElementById('datetime').value,
-        sport: document.getElementById('sport').value,
-        house1: document.getElementById('house1').value,
-        market1: document.getElementById('market1').value,
-        odd1: parseFloat(document.getElementById('odd1').value),
-        house2: document.getElementById('house2').value,
-        market2: document.getElementById('market2').value,
-        odd2: parseFloat(document.getElementById('odd2').value),
-        profit: parseFloat(document.getElementById('profit').value),
-        timestamp: Date.now()
-    };
-
-    const newKey = surebetRef.push().key;
-    surebetRef.child(newKey).set(surebet, (error) => {
-        if (!error) {
-            document.getElementById('surebet-form').reset();
-            showNotification('✅ Surebet adicionada com sucesso!');
-        } else {
-            showNotification('❌ Erro ao salvar!', 'error');
-        }
-    });
-  }
-
-  // Remover surebet do Firebase
-  function removeSurebet(key) {
-    if (!isConnected) {
-        showNotification('❌ Sem conexão com o servidor!', 'error');
-        return;
-    }
-    if (confirm('❓ Tem certeza que deseja remover esta surebet?')) {
-        surebetRef.child(key).remove();
-        showNotification('🗑️ Surebet removida com sucesso!');
-    }
-  }
-
-  // Atualizar em tempo real
-  surebetRef.on("value", (snapshot) => {
-    const data = snapshot.val() || {};
-    surebets = data;
-    renderSurebets();
-  });
-</script>
-
 </body>
-  </html>
+    </html>
