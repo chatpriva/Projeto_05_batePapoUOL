@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LA CASA DAS BET</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+    }
+    header {
+      background-color: #b30000;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    #adminBtn {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: transparent;
+      border: none;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+    }
+    #adminPanel {
+      display: none;
+      padding: 1rem;
+      background: #111;
+    }
+    #adminPanel input[type="file"] {
+      margin: 10px 0;
+    }
+    .gallery {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 1rem;
+    }
+    .gallery img {
+      width: 90%;
+      max-width: 400px;
+      margin-bottom: 1rem;
+      object-fit: cover;
+    }
+    .btn-calc {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #b30000;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>LA CASA DAS BET</header>
+  <button id="adminBtn">⚙️</button>
+
+  <div id="adminPanel">
+    <input type="file" id="imageInput" accept="image/*">
+    <button onclick="uploadImage()">Enviar Foto</button>
+    <div id="imagesList"></div>
+  </div>
+
+  <div class="gallery" id="gallery"></div>
+
+  <a class="btn-calc" href="https://chatpriva.github.io/trabalho-arthur/" target="_blank">Calculadora</a>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+    import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyArY5MJpAlRnQhWV3TYrsh9LYH9Sw2nAeo",
+      authDomain: "surebet-4916a.firebaseapp.com",
+      projectId: "surebet-4916a",
+      storageBucket: "surebet-4916a.appspot.com",
+      messagingSenderId: "975170682118",
+      appId: "1:975170682118:web:1a551a221f1436bd8f3287",
+      measurementId: "G-VQR0H34N9Q",
+      databaseURL: "https://surebet-4916a-default-rtdb.firebaseio.com"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const imagesRef = ref(db, "images");
+
+    const adminBtn = document.getElementById("adminBtn");
+    const adminPanel = document.getElementById("adminPanel");
+    const imageInput = document.getElementById("imageInput");
+    const gallery = document.getElementById("gallery");
+    const imagesList = document.getElementById("imagesList");
+
+    let isAdmin = false;
+
+    adminBtn.onclick = () => {
+      const pass = prompt("Digite a senha:");
+      if (pass === "37511158") {
+        isAdmin = true;
+        adminPanel.style.display = "block";
+        alert("Painel ADM liberado");
+      } else {
+        alert("Senha incorreta!");
+      }
+    };
+
+    function uploadImage() {
+      const file = imageInput.files[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append("image", file);
+
+      fetch("https://api.imgbb.com/1/upload?key=9d8b9a43b078313550201dba6c888feb", {
+        method: "POST",
+        body: formData
+      })
+      .then(res => res.json())
+      .then(data => {
+        const imageUrl = data.data.url;
+        push(imagesRef, imageUrl);
+      });
+    }
+
+    onValue(imagesRef, snapshot => {
+      gallery.innerHTML = "";
+      imagesList.innerHTML = "";
+      snapshot.forEach(child => {
+        const key = child.key;
+        const url = child.val();
+
+        const img = document.createElement("img");
+        img.src = url;
+        gallery.appendChild(img);
+
+        if (isAdmin) {
+          const delBtn = document.createElement("button");
+          delBtn.textContent = "Apagar";
+          delBtn.onclick = () => remove(ref(db, "images/" + key));
+          imagesList.appendChild(delBtn);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
