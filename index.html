@@ -1,156 +1,573 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>LA CASA DAS BET</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #000;
-      color: #fff;
-    }
-    header {
-      background-color: #b30000;
-      padding: 1rem;
-      text-align: center;
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
-    #adminBtn {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      background: transparent;
-      border: none;
-      font-size: 24px;
-      color: white;
-      cursor: pointer;
-    }
-    #adminPanel {
-      display: none;
-      padding: 1rem;
-      background: #111;
-    }
-    #adminPanel input[type="file"] {
-      margin: 10px 0;
-    }
-    .gallery {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 1rem;
-    }
-    .gallery img {
-      width: 90%;
-      max-width: 400px;
-      margin-bottom: 1rem;
-      object-fit: cover;
-    }
-    .btn-calc {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #b30000;
-      color: white;
-      padding: 10px 20px;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LA CASA DAS BET</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1b1b 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(90deg, #000000, #8b0000);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(255, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            margin-bottom: 10px;
+        }
+
+        .header-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-admin {
+            background: linear-gradient(45deg, #ff0000, #8b0000);
+            color: white;
+        }
+
+        .btn-calc {
+            background: linear-gradient(45deg, #ffffff, #cccccc);
+            color: #000000;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Feed Container */
+        .feed-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            padding: 20px 0;
+        }
+
+        .surebet-item {
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(255, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .surebet-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .surebet-image {
+            width: 100%;
+            height: auto;
+            max-height: 600px;
+            object-fit: contain;
+            background: #000;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 18px;
+            color: #ff6b6b;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 20px 60px rgba(255, 0, 0, 0.3);
+        }
+
+        .modal h2 {
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ffffff;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ff6b6b;
+            border-radius: 10px;
+            background: #1a1a1a;
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #ff0000;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+
+        .admin-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-upload {
+            background: linear-gradient(45deg, #00ff00, #008000);
+            color: white;
+        }
+
+        .btn-close {
+            background: linear-gradient(45deg, #666666, #444444);
+            color: white;
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .admin-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .admin-image-item {
+            position: relative;
+            background: #2a2a2a;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .admin-image-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff0000;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .delete-btn:hover {
+            background: #cc0000;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 200px;
+            }
+
+            .main-content {
+                padding: 10px;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+                padding: 20px;
+            }
+
+            .admin-images {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .surebet-item {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
 </head>
 <body>
-  <header>LA CASA DAS BET</header>
-  <button id="adminBtn">⚙️</button>
+    <!-- Header -->
+    <div class="header">
+        <h1>🎯 LA CASA DAS BET 🎯</h1>
+        <div class="header-buttons">
+            <button class="btn btn-admin" onclick="openAdminModal()">⚙️ Painel ADM</button>
+            <a href="https://chatpriva.github.io/trabalho-arthur/" target="_blank" class="btn btn-calc">🧮 Calculadora</a>
+        </div>
+    </div>
 
-  <div id="adminPanel">
-    <input type="file" id="imageInput" accept="image/*">
-    <button onclick="uploadImage()">Enviar Foto</button>
-    <div id="imagesList"></div>
-  </div>
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="feed-container" id="feedContainer">
+            <div class="loading">📊 Carregando surebets...</div>
+        </div>
+    </div>
 
-  <div class="gallery" id="gallery"></div>
+    <!-- Admin Modal -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <h2>🔐 Painel Administrativo</h2>
+            <div class="form-group">
+                <label for="passwordInput">Senha:</label>
+                <input type="password" id="passwordInput" placeholder="Digite a senha">
+            </div>
+            <div class="admin-buttons">
+                <button class="btn btn-upload" onclick="checkPassword()">🔓 Acessar</button>
+                <button class="btn btn-close" onclick="closeAdminModal()">❌ Fechar</button>
+            </div>
+        </div>
+    </div>
 
-  <a class="btn-calc" href="https://chatpriva.github.io/trabalho-arthur/" target="_blank">Calculadora</a>
+    <!-- Upload Modal -->
+    <div id="uploadModal" class="modal">
+        <div class="modal-content">
+            <h2>📤 Upload de Surebet</h2>
+            <div class="form-group">
+                <label for="imageInput">Selecionar Imagem:</label>
+                <input type="file" id="imageInput" accept="image/*">
+            </div>
+            <div class="admin-buttons">
+                <button class="btn btn-upload" onclick="uploadImage()">📤 Enviar</button>
+                <button class="btn btn-close" onclick="closeUploadModal()">❌ Fechar</button>
+            </div>
+        </div>
+    </div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
-    import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="modal-content">
+            <h2>🎛️ Gerenciar Surebets</h2>
+            <div class="admin-buttons">
+                <button class="btn btn-upload" onclick="openUploadModal()">📤 Nova Surebet</button>
+                <button class="btn btn-close" onclick="closeAdminPanel()">❌ Sair</button>
+            </div>
+            <div class="admin-images" id="adminImages"></div>
+        </div>
+    </div>
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyArY5MJpAlRnQhWV3TYrsh9LYH9Sw2nAeo",
-      authDomain: "surebet-4916a.firebaseapp.com",
-      projectId: "surebet-4916a",
-      storageBucket: "surebet-4916a.appspot.com",
-      messagingSenderId: "975170682118",
-      appId: "1:975170682118:web:1a551a221f1436bd8f3287",
-      measurementId: "G-VQR0H34N9Q",
-      databaseURL: "https://surebet-4916a-default-rtdb.firebaseio.com"
-    };
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    const imagesRef = ref(db, "images");
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyArY5MJpAlRnQhWV3TYrsh9LYH9Sw2nAeo",
+            authDomain: "surebet-4916a.firebaseapp.com",
+            projectId: "surebet-4916a",
+            storageBucket: "surebet-4916a.appspot.com",
+            messagingSenderId: "975170682118",
+            appId: "1:975170682118:web:1a551a221f1436bd8f3287",
+            measurementId: "G-VQR0H34N9Q",
+            databaseURL: "https://surebet-4916a-default-rtdb.firebaseio.com"
+        };
 
-    const adminBtn = document.getElementById("adminBtn");
-    const adminPanel = document.getElementById("adminPanel");
-    const imageInput = document.getElementById("imageInput");
-    const gallery = document.getElementById("gallery");
-    const imagesList = document.getElementById("imagesList");
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
 
-    let isAdmin = false;
+        // ImgBB API Key
+        const IMGBB_API_KEY = '9d8b9a43b078313550201dba6c888feb';
 
-    adminBtn.onclick = () => {
-      const pass = prompt("Digite a senha:");
-      if (pass === "37511158") {
-        isAdmin = true;
-        adminPanel.style.display = "block";
-        alert("Painel ADM liberado");
-      } else {
-        alert("Senha incorreta!");
-      }
-    };
+        // Admin password
+        const ADMIN_PASSWORD = '37511158';
 
-    function uploadImage() {
-      const file = imageInput.files[0];
-      if (!file) return;
+        // Global variables
+        let isAdminLoggedIn = false;
 
-      const formData = new FormData();
-      formData.append("image", file);
-
-      fetch("https://api.imgbb.com/1/upload?key=9d8b9a43b078313550201dba6c888feb", {
-        method: "POST",
-        body: formData
-      })
-      .then(res => res.json())
-      .then(data => {
-        const imageUrl = data.data.url;
-        push(imagesRef, imageUrl);
-      });
-    }
-
-    onValue(imagesRef, snapshot => {
-      gallery.innerHTML = "";
-      imagesList.innerHTML = "";
-      snapshot.forEach(child => {
-        const key = child.key;
-        const url = child.val();
-
-        const img = document.createElement("img");
-        img.src = url;
-        gallery.appendChild(img);
-
-        if (isAdmin) {
-          const delBtn = document.createElement("button");
-          delBtn.textContent = "Apagar";
-          delBtn.onclick = () => remove(ref(db, "images/" + key));
-          imagesList.appendChild(delBtn);
+        // Modal functions
+        function openAdminModal() {
+            document.getElementById('adminModal').style.display = 'block';
         }
-      });
-    });
-  </script>
+
+        function closeAdminModal() {
+            document.getElementById('adminModal').style.display = 'none';
+            document.getElementById('passwordInput').value = '';
+        }
+
+        function openUploadModal() {
+            document.getElementById('uploadModal').style.display = 'block';
+        }
+
+        function closeUploadModal() {
+            document.getElementById('uploadModal').style.display = 'none';
+            document.getElementById('imageInput').value = '';
+        }
+
+        function closeAdminPanel() {
+            document.getElementById('adminPanel').style.display = 'none';
+            isAdminLoggedIn = false;
+        }
+
+        // Check password
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            if (password === ADMIN_PASSWORD) {
+                isAdminLoggedIn = true;
+                closeAdminModal();
+                showAdminPanel();
+            } else {
+                alert('❌ Senha incorreta!');
+            }
+        }
+
+        // Show admin panel
+        function showAdminPanel() {
+            document.getElementById('adminPanel').style.display = 'block';
+            loadAdminImages();
+        }
+
+        // Upload image to ImgBB
+        async function uploadImage() {
+            const fileInput = document.getElementById('imageInput');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('📷 Selecione uma imagem primeiro!');
+                return;
+            }
+
+            try {
+                const formData = new FormData();
+                formData.append('image', file);
+
+                const response = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    const imageUrl = result.data.url;
+                    const imageId = Date.now().toString();
+                    
+                    // Save to Firebase
+                    await database.ref('surebets/' + imageId).set({
+                        url: imageUrl,
+                        timestamp: firebase.database.ServerValue.TIMESTAMP
+                    });
+
+                    alert('✅ Imagem enviada com sucesso!');
+                    closeUploadModal();
+                    loadAdminImages();
+                } else {
+                    alert('❌ Erro ao enviar imagem!');
+                }
+            } catch (error) {
+                console.error('Upload error:', error);
+                alert('❌ Erro ao enviar imagem!');
+            }
+        }
+
+        // Delete image
+        async function deleteImage(imageId) {
+            if (confirm('🗑️ Tem certeza que deseja deletar esta imagem?')) {
+                try {
+                    await database.ref('surebets/' + imageId).remove();
+                    alert('✅ Imagem deletada com sucesso!');
+                    loadAdminImages();
+                } catch (error) {
+                    console.error('Delete error:', error);
+                    alert('❌ Erro ao deletar imagem!');
+                }
+            }
+        }
+
+        // Load images for admin panel
+        function loadAdminImages() {
+            const adminImagesContainer = document.getElementById('adminImages');
+            adminImagesContainer.innerHTML = '<div class="loading">📊 Carregando imagens...</div>';
+
+            database.ref('surebets').orderByChild('timestamp').on('value', (snapshot) => {
+                adminImagesContainer.innerHTML = '';
+                const images = [];
+
+                snapshot.forEach((childSnapshot) => {
+                    const data = childSnapshot.val();
+                    images.push({
+                        id: childSnapshot.key,
+                        url: data.url,
+                        timestamp: data.timestamp
+                    });
+                });
+
+                // Sort by timestamp (newest first)
+                images.sort((a, b) => b.timestamp - a.timestamp);
+
+                if (images.length === 0) {
+                    adminImagesContainer.innerHTML = '<div class="loading">📷 Nenhuma imagem encontrada</div>';
+                    return;
+                }
+
+                images.forEach(image => {
+                    const imageItem = document.createElement('div');
+                    imageItem.className = 'admin-image-item';
+                    imageItem.innerHTML = `
+                        <img src="${image.url}" alt="Surebet">
+                        <button class="delete-btn" onclick="deleteImage('${image.id}')">🗑️</button>
+                    `;
+                    adminImagesContainer.appendChild(imageItem);
+                });
+            });
+        }
+
+        // Load images for main feed
+        function loadFeedImages() {
+            const feedContainer = document.getElementById('feedContainer');
+            
+            database.ref('surebets').orderByChild('timestamp').on('value', (snapshot) => {
+                feedContainer.innerHTML = '';
+                const images = [];
+
+                snapshot.forEach((childSnapshot) => {
+                    const data = childSnapshot.val();
+                    images.push({
+                        id: childSnapshot.key,
+                        url: data.url,
+                        timestamp: data.timestamp
+                    });
+                });
+
+                // Sort by timestamp (newest first)
+                images.sort((a, b) => b.timestamp - a.timestamp);
+
+                if (images.length === 0) {
+                    feedContainer.innerHTML = '<div class="loading">📊 Nenhuma surebet disponível no momento</div>';
+                    return;
+                }
+
+                images.forEach(image => {
+                    const surebetItem = document.createElement('div');
+                    surebetItem.className = 'surebet-item';
+                    surebetItem.innerHTML = `
+                        <img src="${image.url}" alt="Surebet" class="surebet-image">
+                    `;
+                    feedContainer.appendChild(surebetItem);
+                });
+            });
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const adminModal = document.getElementById('adminModal');
+            const uploadModal = document.getElementById('uploadModal');
+            
+            if (event.target == adminModal) {
+                closeAdminModal();
+            }
+            if (event.target == uploadModal) {
+                closeUploadModal();
+            }
+        }
+
+        // Handle Enter key in password input
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFeedImages();
+        });
+    </script>
 </body>
 </html>
