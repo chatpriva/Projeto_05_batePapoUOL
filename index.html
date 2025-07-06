@@ -1,149 +1,471 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>La Casa das Bet</title>
-  <style>
-    * { box-sizing: border-box; font-family: Arial, sans-serif; }
-    body { margin: 0; background: #f0f2f5; padding: 20px; }
-    h1 { text-align: center; }
-    .admin-btn {
-      text-align: center;
-      margin: 10px auto;
-    }
-    .admin-btn button {
-      background: transparent;
-      border: none;
-      color: #888;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    .login, .admin, .form, .surebets { max-width: 600px; margin: 0 auto; }
-    .card {
-      background: #fff;
-      margin: 15px 0;
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    .card h2 { margin: 0 0 10px; }
-    .card small { color: #666; }
-    input, textarea, button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-    button { background: #000; color: #fff; font-weight: bold; cursor: pointer; }
-    button:hover { background: #333; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SureBet - Apostas Garantidas | Lucro Garantido</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #000000, #1a1a1a);
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ff0000;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            background: linear-gradient(135deg, #000000, #330000);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23ff0000" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero .subtitle {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #ff6666;
+        }
+
+        .hero .description {
+            font-size: 18px;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff0000, #cc0000);
+            color: white;
+            padding: 20px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 0, 0, 0.5);
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section:nth-child(even) {
+            background: linear-gradient(135deg, #1a1a1a, #000000);
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: #ff0000;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid rgba(255, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: #ff0000;
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #ff0000;
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #ff6666;
+        }
+
+        .what-is-surebet {
+            background: linear-gradient(135deg, #000000, #1a1a1a);
+            padding: 80px 0;
+        }
+
+        .surebet-explanation {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        .surebet-explanation h3 {
+            color: #ff0000;
+            font-size: 28px;
+            margin: 30px 0 20px;
+        }
+
+        .example-box {
+            background: rgba(255, 0, 0, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border-left: 5px solid #ff0000;
+        }
+
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .benefit-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .benefit-item .icon {
+            font-size: 40px;
+            color: #ff0000;
+            margin-bottom: 15px;
+        }
+
+        .telegram-section {
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .telegram-section h2 {
+            color: white;
+            font-size: 42px;
+            margin-bottom: 30px;
+        }
+
+        .telegram-section p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .telegram-button {
+            display: inline-block;
+            background: white;
+            color: #ff0000;
+            padding: 20px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 22px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .telegram-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .telegram-icon {
+            margin-right: 10px;
+            font-size: 24px;
+        }
+
+        footer {
+            background: #000000;
+            padding: 40px 0;
+            text-align: center;
+            border-top: 2px solid #ff0000;
+        }
+
+        .warning {
+            background: rgba(255, 255, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border-left: 5px solid #ffff00;
+            color: #ffff99;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero .subtitle {
+                font-size: 20px;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .section h2 {
+                font-size: 28px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <nav class="container">
+            <div class="logo">🎯 SureBet Pro</div>
+        </nav>
+    </header>
 
-  <h1>La Casa das Bet</h1>
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>SureBet - Apostas Garantidas</h1>
+                    <p class="subtitle">Lucro Garantido em Todas as Apostas</p>
+                    <p class="description">
+                        Descubra o segredo dos apostadores profissionais e transforme apostas em uma fonte de renda garantida com as melhores oportunidades de SureBet do mercado.
+                    </p>
+                    <a href="#telegram" class="cta-button">🚀 Quero Lucrar Agora!</a>
+                </div>
+            </div>
+        </section>
 
-  <!-- SUREBETS VISÍVEIS PARA TODOS -->
-  <div class="surebets" id="surebets"></div>
+        <section class="section what-is-surebet">
+            <div class="container">
+                <h2>O Que É SureBet?</h2>
+                <div class="surebet-explanation">
+                    <p>
+                        <strong>SureBet</strong> (também conhecida como Arbitragem Esportiva) é uma estratégia matemática que garante lucro independente do resultado de um evento esportivo. É uma técnica utilizada por apostadores profissionais em todo o mundo.
+                    </p>
 
-  <!-- BOTÃO PEQUENO PARA ABRIR ÁREA ADMIN -->
-  <div class="admin-btn">
-    <button onclick="document.querySelector('.login').style.display='block'">↳ Acesso administrativo</button>
-  </div>
+                    <h3>🎯 Como Funciona?</h3>
+                    <p>
+                        As casas de apostas têm opiniões diferentes sobre as probabilidades dos jogos. Quando essas diferenças são significativas, surge uma oportunidade de SureBet - você pode apostar em todos os resultados possíveis e garantir lucro.
+                    </p>
 
-  <!-- LOGIN COM SENHA (OCULTO POR PADRÃO) -->
-  <div class="login" style="display:none">
-    <input type="password" id="senha" placeholder="Senha do painel"/>
-    <button onclick="entrarPainel()">Entrar</button>
-  </div>
+                    <div class="example-box">
+                        <h4>📊 Exemplo Prático:</h4>
+                        <p><strong>Jogo:</strong> Flamengo vs Palmeiras</p>
+                        <p><strong>Casa A:</strong> Flamengo @2.10</p>
+                        <p><strong>Casa B:</strong> Palmeiras @2.05</p>
+                        <p><strong>Resultado:</strong> Apostando R$ 48,78 no Flamengo e R$ 48,78 no Palmeiras, você garante lucro de R$ 2,44 independente do resultado!</p>
+                    </div>
 
-  <!-- ÁREA ADMINISTRATIVA (OCULTA POR PADRÃO) -->
-  <div class="admin" style="display:none">
-    <h2>Painel - Nova Surebet</h2>
-    <div class="form">
-      <input type="text" id="times" placeholder="Ex: Spain (W) – Portugal (W)">
-      <input type="text" id="data" placeholder="Ex: 03/07/2025 16:00">
-      <input type="text" id="lucro" placeholder="Lucro % (Ex: 1,68)">
-      <input type="text" id="bet1" placeholder="Casa 1 (Ex: BET 7K)">
-      <input type="text" id="desc1" placeholder="Aposta 1 (Ex: Acima 0.5...)">
-      <input type="text" id="odd1" placeholder="Odd 1 (Ex: 1,83)">
-      <input type="text" id="bet2" placeholder="Casa 2 (Ex: Esportingbet)">
-      <input type="text" id="desc2" placeholder="Aposta 2 (Ex: Abaixo 0.5...)">
-      <input type="text" id="odd2" placeholder="Odd 2 (Ex: 2,30)">
-      <input type="text" id="esporte" placeholder="Esporte (Ex: Futebol)">
-      <button onclick="adicionarSurebet()">Adicionar Surebet</button>
-    </div>
-  </div>
+                    <h3>⚡ Por Que Funciona?</h3>
+                    <p>
+                        As casas de apostas não se comunicam entre si e têm análises diferentes dos jogos. Essas diferenças criam oportunidades matemáticas que podem ser exploradas por quem tem o conhecimento e as ferramentas certas.
+                    </p>
+                </div>
+            </div>
+        </section>
 
-  <!-- Firebase SDK -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
-    import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
+        <section class="section">
+            <div class="container">
+                <h2>Vantagens da SureBet</h2>
+                <div class="benefits">
+                    <div class="benefit-item">
+                        <div class="icon">💰</div>
+                        <h3>Lucro Garantido</h3>
+                        <p>Não importa o resultado do jogo, você sempre sai ganhando</p>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="icon">📊</div>
+                        <h3>Baseado em Matemática</h3>
+                        <p>Não é sorte, é ciência! Cálculos precisos garantem seus ganhos</p>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="icon">🛡️</div>
+                        <h3>Sem Riscos</h3>
+                        <p>Estratégia sem riscos quando aplicada corretamente</p>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="icon">⚡</div>
+                        <h3>Oportunidades Diárias</h3>
+                        <p>Centenas de oportunidades disponíveis todos os dias</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyAE-0JkVBOHyPhwBLiZA611slxM9j2ahq4",
-      authDomain: "chat-37.firebaseapp.com",
-      databaseURL: "https://chat-37-default-rtdb.firebaseio.com",
-      projectId: "chat-37",
-      storageBucket: "chat-37.firebasestorage.app",
-      messagingSenderId: "372607332680",
-      appId: "1:372607332680:web:af46f5a4a45a66699c037d"
-    };
+        <section class="section">
+            <div class="container">
+                <h2>Como Começar</h2>
+                <div class="features">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3>1. Identifique Oportunidades</h3>
+                        <p>Encontre as melhores SureBets com odds favoráveis em diferentes casas de apostas</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🧮</div>
+                        <h3>2. Calcule os Valores</h3>
+                        <p>Use fórmulas matemáticas precisas para determinar quanto apostar em cada resultado</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💸</div>
+                        <h3>3. Execute as Apostas</h3>
+                        <p>Faça as apostas rapidamente antes que as odds mudem</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    const surebetsRef = ref(db, "surebets");
+        <div class="warning container">
+            <h4>⚠️ Aviso Importante:</h4>
+            <p>SureBet é uma estratégia avançada que requer conhecimento, disciplina e capital. Sempre aposte com responsabilidade e dentro de suas possibilidades financeiras.</p>
+        </div>
 
-    function entrarPainel() {
-      const senha = document.getElementById('senha').value;
-      if (senha === "458") {
-        document.querySelector('.login').style.display = 'none';
-        document.querySelector('.admin').style.display = 'block';
-      } else {
-        alert("Senha incorreta");
-      }
-    }
+        <section class="telegram-section" id="telegram">
+            <div class="container">
+                <h2>🚀 Entre No Nosso Grupo VIP</h2>
+                <p>
+                    Acesse diariamente as melhores oportunidades de SureBet selecionadas por nossa equipe de especialistas. Transforme apostas em uma fonte de renda consistente!
+                </p>
+                <a href="https://t.me/+ENh4HSs9NiA4NTFh" class="telegram-button" target="_blank">
+                    <span class="telegram-icon">📱</span>
+                    Entrar no Grupo Telegram
+                </a>
+                <p style="margin-top: 30px; font-size: 16px;">
+                    ✅ Oportunidades diárias<br>
+                    ✅ Suporte especializado<br>
+                    ✅ Comunidade ativa<br>
+                    ✅ Resultados comprovados
+                </p>
+            </div>
+        </section>
+    </main>
 
-    function adicionarSurebet() {
-      const dados = {
-        times: document.getElementById("times").value,
-        data: document.getElementById("data").value,
-        lucro: document.getElementById("lucro").value,
-        bet1: document.getElementById("bet1").value,
-        desc1: document.getElementById("desc1").value,
-        odd1: document.getElementById("odd1").value,
-        bet2: document.getElementById("bet2").value,
-        desc2: document.getElementById("desc2").value,
-        odd2: document.getElementById("odd2").value,
-        esporte: document.getElementById("esporte").value
-      };
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 SureBet Pro. Todos os direitos reservados.</p>
+            <p>Aposte com responsabilidade. Maiores de 18 anos.</p>
+        </div>
+    </footer>
 
-      push(surebetsRef, dados);
-      document.querySelectorAll('.form input').forEach(input => input.value = '');
-    }
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
 
-    function renderSurebets(snapshot) {
-      const container = document.getElementById("surebets");
-      container.innerHTML = "";
+        // Add some interactive effects
+        const cards = document.querySelectorAll('.feature-card, .benefit-item');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
 
-      snapshot.forEach(child => {
-        const sb = child.val();
-        const card = `
-          <div class="card">
-            <h2>${sb.times}</h2>
-            <small>${sb.data} | ${sb.esporte}</small>
-            <p><strong>Lucro:</strong> ${sb.lucro}%</p>
-            <p><strong>${sb.bet1}</strong>: ${sb.desc1} — <strong>${sb.odd1} (odd)</strong></p>
-            <p><strong>${sb.bet2}</strong>: ${sb.desc2} — <strong>${sb.odd2} (odd)</strong></p>
-          </div>
-        `;
-        container.innerHTML += card;
-      });
-    }
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-    onValue(surebetsRef, renderSurebets);
-  </script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
 
+        document.querySelectorAll('.feature-card, .benefit-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
 </body>
-</html>
+  </html>
