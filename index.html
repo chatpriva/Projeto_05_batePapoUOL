@@ -8,6 +8,17 @@
     * { box-sizing: border-box; font-family: Arial, sans-serif; }
     body { margin: 0; background: #f0f2f5; padding: 20px; }
     h1 { text-align: center; }
+    .admin-btn {
+      text-align: center;
+      margin: 10px auto;
+    }
+    .admin-btn button {
+      background: transparent;
+      border: none;
+      color: #888;
+      cursor: pointer;
+      font-size: 14px;
+    }
     .login, .admin, .form, .surebets { max-width: 600px; margin: 0 auto; }
     .card {
       background: #fff;
@@ -33,11 +44,21 @@
 
   <h1>La Casa das Bet</h1>
 
-  <div class="login">
-    <input type="password" id="senha" placeholder="Digite a senha para acessar o painel"/>
+  <!-- SUREBETS VISÍVEIS PARA TODOS -->
+  <div class="surebets" id="surebets"></div>
+
+  <!-- BOTÃO PEQUENO PARA ABRIR ÁREA ADMIN -->
+  <div class="admin-btn">
+    <button onclick="document.querySelector('.login').style.display='block'">↳ Acesso administrativo</button>
+  </div>
+
+  <!-- LOGIN COM SENHA (OCULTO POR PADRÃO) -->
+  <div class="login" style="display:none">
+    <input type="password" id="senha" placeholder="Senha do painel"/>
     <button onclick="entrarPainel()">Entrar</button>
   </div>
 
+  <!-- ÁREA ADMINISTRATIVA (OCULTA POR PADRÃO) -->
   <div class="admin" style="display:none">
     <h2>Painel - Nova Surebet</h2>
     <div class="form">
@@ -55,11 +76,8 @@
     </div>
   </div>
 
-  <div class="surebets" id="surebets"></div>
-
   <!-- Firebase SDK -->
   <script type="module">
-    // Import Firebase
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
     import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
 
@@ -102,8 +120,6 @@
       };
 
       push(surebetsRef, dados);
-
-      // Limpa os campos
       document.querySelectorAll('.form input').forEach(input => input.value = '');
     }
 
@@ -113,7 +129,6 @@
 
       snapshot.forEach(child => {
         const sb = child.val();
-
         const card = `
           <div class="card">
             <h2>${sb.times}</h2>
@@ -123,7 +138,6 @@
             <p><strong>${sb.bet2}</strong>: ${sb.desc2} — <strong>${sb.odd2} (odd)</strong></p>
           </div>
         `;
-
         container.innerHTML += card;
       });
     }
@@ -132,4 +146,4 @@
   </script>
 
 </body>
-  </html>
+</html>
