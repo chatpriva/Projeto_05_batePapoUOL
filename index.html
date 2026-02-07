@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SureBet - Apostas Garantidas | Lucro Garantido</title>
+    <title>📖 Guia: Como Criar Posts no Estilo Profissional</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,460 +13,559 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #000000, #1a1a1a);
-            color: #ffffff;
+            font-family: 'DM Sans', sans-serif;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            padding: 2rem;
             line-height: 1.6;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
         }
 
         header {
-            background: rgba(0, 0, 0, 0.9);
-            padding: 20px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: #ff0000;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .hero {
-            padding: 120px 0 80px;
-            text-align: center;
-            background: linear-gradient(135deg, #000000, #330000);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23ff0000" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-            z-index: 1;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
-        }
-
-        .hero .subtitle {
-            font-size: 24px;
-            margin-bottom: 30px;
-            color: #ff6666;
-        }
-
-        .hero .description {
-            font-size: 18px;
-            margin-bottom: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(45deg, #ff0000, #cc0000);
+            background: linear-gradient(135deg, #8B4654 0%, #B07985 100%);
             color: white;
-            padding: 20px 40px;
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 3rem 2rem;
+        }
+
+        .step {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: #f9f9f9;
+            border-radius: 16px;
+            border-left: 5px solid #8B4654;
+        }
+
+        .step-number {
+            display: inline-block;
+            background: #8B4654;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
             font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3);
-            animation: pulse 2s infinite;
+            margin-right: 1rem;
+            font-size: 1.2rem;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        .step h2 {
+            display: inline-block;
+            color: #2C2C2C;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
         }
 
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(255, 0, 0, 0.5);
+        .step p {
+            margin: 1rem 0;
+            color: #555;
+            font-size: 1.1rem;
         }
 
-        .section {
-            padding: 80px 0;
-        }
-
-        .section:nth-child(even) {
-            background: linear-gradient(135deg, #1a1a1a, #000000);
-        }
-
-        .section h2 {
-            text-align: center;
-            font-size: 36px;
-            margin-bottom: 50px;
-            color: #ff0000;
-        }
-
-        .features {
+        .comparison {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 60px;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
         }
 
-        .feature-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 40px;
-            border-radius: 15px;
-            text-align: center;
-            border: 2px solid rgba(255, 0, 0, 0.2);
-            transition: transform 0.3s ease;
+        .comparison-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
 
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: #ff0000;
+        .comparison-item h3 {
+            color: #8B4654;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
         }
 
-        .feature-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: #ff0000;
+        .comparison-item.bad {
+            border: 2px solid #ff6b6b;
         }
 
-        .feature-card h3 {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: #ff6666;
-        }
-
-        .what-is-surebet {
-            background: linear-gradient(135deg, #000000, #1a1a1a);
-            padding: 80px 0;
-        }
-
-        .surebet-explanation {
-            max-width: 800px;
-            margin: 0 auto;
-            font-size: 18px;
-            line-height: 1.8;
-        }
-
-        .surebet-explanation h3 {
-            color: #ff0000;
-            font-size: 28px;
-            margin: 30px 0 20px;
+        .comparison-item.good {
+            border: 2px solid #51cf66;
         }
 
         .example-box {
-            background: rgba(255, 0, 0, 0.1);
-            padding: 30px;
-            border-radius: 10px;
-            margin: 30px 0;
-            border-left: 5px solid #ff0000;
-        }
-
-        .benefits {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .benefit-item {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            border: 1px solid rgba(255, 0, 0, 0.3);
-        }
-
-        .benefit-item .icon {
-            font-size: 40px;
-            color: #ff0000;
-            margin-bottom: 15px;
-        }
-
-        .telegram-section {
-            background: linear-gradient(135deg, #ff0000, #cc0000);
-            padding: 80px 0;
-            text-align: center;
-        }
-
-        .telegram-section h2 {
-            color: white;
-            font-size: 42px;
-            margin-bottom: 30px;
-        }
-
-        .telegram-section p {
-            font-size: 20px;
-            margin-bottom: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .telegram-button {
-            display: inline-block;
             background: white;
-            color: #ff0000;
-            padding: 20px 40px;
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 22px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            border: 2px dashed #8B4654;
         }
 
-        .telegram-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        .telegram-icon {
-            margin-right: 10px;
-            font-size: 24px;
-        }
-
-        footer {
-            background: #000000;
-            padding: 40px 0;
+        .mockup {
+            background: #2C2C2C;
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            position: relative;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
             text-align: center;
-            border-top: 2px solid #ff0000;
+            font-weight: bold;
+            line-height: 1.4;
         }
 
-        .warning {
-            background: rgba(255, 255, 0, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 30px 0;
-            border-left: 5px solid #ffff00;
-            color: #ffff99;
+        .mockup::before {
+            content: '📸 FOTO DE PESSOA PENSATIVA AQUI';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 0.8rem;
+            opacity: 0.5;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: normal;
+        }
+
+        .mockup::after {
+            content: 'Descomplicando\AEMOÇÕES';
+            white-space: pre;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 0.9rem;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: normal;
+            text-align: right;
+            line-height: 1.2;
+        }
+
+        .tip {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        .tip strong {
+            color: #856404;
+        }
+
+        .checklist {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        .checklist ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li {
+            padding: 0.5rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .checklist li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .settings-box {
+            background: #e7f3ff;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+        }
+
+        .settings-box code {
+            background: #fff;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #8B4654;
+            font-weight: bold;
+        }
+
+        .photo-sources {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .photo-source {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .photo-source:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .photo-source h4 {
+            color: #8B4654;
+            margin: 0.5rem 0;
+        }
+
+        .final-cta {
+            background: linear-gradient(135deg, #8B4654 0%, #B07985 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .final-cta h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .final-cta p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
         }
 
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 36px;
-            }
-            
-            .hero .subtitle {
-                font-size: 20px;
-            }
-            
-            .features {
+            .comparison {
                 grid-template-columns: 1fr;
             }
-            
-            .section h2 {
-                font-size: 28px;
+
+            .photo-sources {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <nav class="container">
-            <div class="logo">🎯 SureBet Pro</div>
-        </nav>
-    </header>
+    <div class="container">
+        <header>
+            <h1>📖 Guia Completo</h1>
+            <p class="subtitle">Como criar posts profissionais para o Workshop</p>
+        </header>
 
-    <main>
-        <section class="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <h1>SureBet - Apostas Garantidas</h1>
-                    <p class="subtitle">Lucro Garantido em Todas as Apostas</p>
-                    <p class="description">
-                        Descubra o segredo dos apostadores profissionais e transforme apostas em uma fonte de renda garantida com as melhores oportunidades de SureBet do mercado.
-                    </p>
-                    <a href="#telegram" class="cta-button">🚀 Quero Lucrar Agora!</a>
-                </div>
-            </div>
-        </section>
+        <div class="content">
+            <!-- PASSO 1 -->
+            <div class="step">
+                <span class="step-number">1</span>
+                <h2>Buscar a Foto Perfeita</h2>
+                <p>O segredo está na FOTO! Ela precisa transmitir emoção e conectar com o tema "raiva/emoções".</p>
 
-        <section class="section what-is-surebet">
-            <div class="container">
-                <h2>O Que É SureBet?</h2>
-                <div class="surebet-explanation">
-                    <p>
-                        <strong>SureBet</strong> (também conhecida como Arbitragem Esportiva) é uma estratégia matemática que garante lucro independente do resultado de um evento esportivo. É uma técnica utilizada por apostadores profissionais em todo o mundo.
-                    </p>
-
-                    <h3>🎯 Como Funciona?</h3>
-                    <p>
-                        As casas de apostas têm opiniões diferentes sobre as probabilidades dos jogos. Quando essas diferenças são significativas, surge uma oportunidade de SureBet - você pode apostar em todos os resultados possíveis e garantir lucro.
-                    </p>
-
-                    <div class="example-box">
-                        <h4>📊 Exemplo Prático:</h4>
-                        <p><strong>Jogo:</strong> Flamengo vs Palmeiras</p>
-                        <p><strong>Casa A:</strong> Flamengo @2.10</p>
-                        <p><strong>Casa B:</strong> Palmeiras @2.05</p>
-                        <p><strong>Resultado:</strong> Apostando R$ 48,78 no Flamengo e R$ 48,78 no Palmeiras, você garante lucro de R$ 2,44 independente do resultado!</p>
+                <div class="photo-sources">
+                    <div class="photo-source">
+                        <h4>🔍 Pexels</h4>
+                        <p><a href="https://pexels.com" target="_blank">pexels.com</a></p>
+                        <p style="font-size: 0.9rem; color: #666;">Grátis, alta qualidade</p>
                     </div>
-
-                    <h3>⚡ Por Que Funciona?</h3>
-                    <p>
-                        As casas de apostas não se comunicam entre si e têm análises diferentes dos jogos. Essas diferenças criam oportunidades matemáticas que podem ser exploradas por quem tem o conhecimento e as ferramentas certas.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <section class="section">
-            <div class="container">
-                <h2>Vantagens da SureBet</h2>
-                <div class="benefits">
-                    <div class="benefit-item">
-                        <div class="icon">💰</div>
-                        <h3>Lucro Garantido</h3>
-                        <p>Não importa o resultado do jogo, você sempre sai ganhando</p>
+                    <div class="photo-source">
+                        <h4>📸 Unsplash</h4>
+                        <p><a href="https://unsplash.com" target="_blank">unsplash.com</a></p>
+                        <p style="font-size: 0.9rem; color: #666;">Fotos profissionais</p>
                     </div>
-                    <div class="benefit-item">
-                        <div class="icon">📊</div>
-                        <h3>Baseado em Matemática</h3>
-                        <p>Não é sorte, é ciência! Cálculos precisos garantem seus ganhos</p>
-                    </div>
-                    <div class="benefit-item">
-                        <div class="icon">🛡️</div>
-                        <h3>Sem Riscos</h3>
-                        <p>Estratégia sem riscos quando aplicada corretamente</p>
-                    </div>
-                    <div class="benefit-item">
-                        <div class="icon">⚡</div>
-                        <h3>Oportunidades Diárias</h3>
-                        <p>Centenas de oportunidades disponíveis todos os dias</p>
+                    <div class="photo-source">
+                        <h4>🎨 Pixabay</h4>
+                        <p><a href="https://pixabay.com" target="_blank">pixabay.com</a></p>
+                        <p style="font-size: 0.9rem; color: #666;">Banco brasileiro</p>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <section class="section">
-            <div class="container">
-                <h2>Como Começar</h2>
-                <div class="features">
-                    <div class="feature-card">
-                        <div class="feature-icon">🎯</div>
-                        <h3>1. Identifique Oportunidades</h3>
-                        <p>Encontre as melhores SureBets com odds favoráveis em diferentes casas de apostas</p>
+                <div class="tip">
+                    <strong>💡 Dica:</strong> Busque por: "pessoa pensativa", "mulher reflexiva", "homem frustrado", "emoções", "thoughtful person", "frustrated". Use termos em INGLÊS para mais resultados!
+                </div>
+
+                <div class="example-box">
+                    <strong>✅ Fotos que funcionam:</strong>
+                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li>Pessoa com mão no rosto (pensativa)</li>
+                        <li>Close no rosto com expressão séria/reflexiva</li>
+                        <li>Pessoa olhando para longe (contemplativa)</li>
+                        <li>Ambiente intimista (quarto, sala, janela)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- PASSO 2 -->
+            <div class="step">
+                <span class="step-number">2</span>
+                <h2>Abrir o Editor</h2>
+                <p>Abra o arquivo <strong>editor-workshop-raiva.html</strong> no navegador (Chrome, Firefox, Edge).</p>
+                
+                <div class="checklist">
+                    <strong>O editor tem 3 áreas:</strong>
+                    <ul>
+                        <li><strong>Esquerda:</strong> Controles (upload, textos, cores)</li>
+                        <li><strong>Centro:</strong> Visualização do post</li>
+                        <li><strong>Direita:</strong> Templates prontos (clique para usar!)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- PASSO 3 -->
+            <div class="step">
+                <span class="step-number">3</span>
+                <h2>Escolher Template</h2>
+                <p>No painel da DIREITA, escolha um dos 8 templates. Exemplo:</p>
+
+                <div class="comparison">
+                    <div class="comparison-item good">
+                        <h3>✅ Template: "Headline Principal"</h3>
+                        <p style="font-style: italic; color: #666;">"RAIVA NÃO É O PROBLEMA. NÃO SABER O QUE FAZER COM ELA, É."</p>
                     </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🧮</div>
-                        <h3>2. Calcule os Valores</h3>
-                        <p>Use fórmulas matemáticas precisas para determinar quanto apostar em cada resultado</p>
+                    <div class="comparison-item good">
+                        <h3>✅ Template: "Call to Action"</h3>
+                        <p style="font-style: italic; color: #666;">"WORKSHOP RAIVA SEM CULPA • 28/03 • AO VIVO • VAGAS LIMITADAS"</p>
                     </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">💸</div>
-                        <h3>3. Execute as Apostas</h3>
-                        <p>Faça as apostas rapidamente antes que as odds mudem</p>
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Dica:</strong> Clique no template à direita e o texto aparece automaticamente no campo "Texto"!
+                </div>
+            </div>
+
+            <!-- PASSO 4 -->
+            <div class="step">
+                <span class="step-number">4</span>
+                <h2>Fazer Upload da Foto</h2>
+                <p>Na seção <strong>"🖼️ Foto de Fundo"</strong>:</p>
+                
+                <ol style="margin-left: 2rem; margin-top: 1rem;">
+                    <li>Clique em <strong>"📁 Upload"</strong></li>
+                    <li>Selecione a foto que você baixou do Pexels</li>
+                    <li>A foto aparece automaticamente no canvas!</li>
+                </ol>
+
+                <div class="mockup">
+                    RAIVA NÃO É<br>O PROBLEMA.<br><br>NÃO SABER O QUE<br>FAZER COM ELA, É.
+                </div>
+            </div>
+
+            <!-- PASSO 5 -->
+            <div class="step">
+                <span class="step-number">5</span>
+                <h2>Ajustar Configurações</h2>
+                <p>Agora é hora de deixar IGUAL ao estilo profissional dela:</p>
+
+                <div class="settings-box">
+                    <h3 style="margin-bottom: 1rem;">⚙️ Configurações Recomendadas:</h3>
+                    
+                    <p><strong>🌓 Escurecer (Overlay):</strong> <code>40% a 60%</code></p>
+                    <p style="font-size: 0.9rem; color: #666; margin-left: 1.5rem;">↳ Isso cria aquele efeito escuro sobre a foto para o texto ficar legível</p>
+                    
+                    <p style="margin-top: 1rem;"><strong>🎨 Cor do Texto:</strong> <code>#FFFFFF</code> (branco)</p>
+                    <p style="font-size: 0.9rem; color: #666; margin-left: 1.5rem;">↳ Ou use os presets de cor clicando nas bolinhas coloridas</p>
+                    
+                    <p style="margin-top: 1rem;"><strong>🔤 Fonte:</strong> <code>Playfair Display</code> ou <code>Libre Baskerville</code></p>
+                    <p style="font-size: 0.9rem; color: #666; margin-left: 1.5rem;">↳ Fontes elegantes e profissionais</p>
+                    
+                    <p style="margin-top: 1rem;"><strong>📏 Tamanho da Fonte:</strong> <code>60px a 80px</code></p>
+                    <p style="font-size: 0.9rem; color: #666; margin-left: 1.5rem;">↳ Use o slider para ajustar até ficar perfeito</p>
+                </div>
+
+                <div class="comparison">
+                    <div class="comparison-item bad">
+                        <h3>❌ Sem ajustes</h3>
+                        <p>• Foto muito clara</p>
+                        <p>• Texto difícil de ler</p>
+                        <p>• Sem profissionalismo</p>
+                    </div>
+                    <div class="comparison-item good">
+                        <h3>✅ Com ajustes</h3>
+                        <p>• Overlay escuro aplicado</p>
+                        <p>• Texto super legível</p>
+                        <p>• Visual profissional</p>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <div class="warning container">
-            <h4>⚠️ Aviso Importante:</h4>
-            <p>SureBet é uma estratégia avançada que requer conhecimento, disciplina e capital. Sempre aposte com responsabilidade e dentro de suas possibilidades financeiras.</p>
-        </div>
+            <!-- PASSO 6 -->
+            <div class="step">
+                <span class="step-number">6</span>
+                <h2>Adicionar o Logo</h2>
+                <p>Na seção <strong>"🏷️ Logo"</strong>:</p>
+                
+                <ol style="margin-left: 2rem; margin-top: 1rem;">
+                    <li>Clique em <strong>"📁 Adicionar"</strong></li>
+                    <li>Faça upload do logo "Descomplicando Emoções" (PNG transparente)</li>
+                    <li>Escolha a posição clicando nos botões:</li>
+                </ol>
 
-        <section class="telegram-section" id="telegram">
-            <div class="container">
-                <h2>🚀 Entre No Nosso Grupo VIP</h2>
-                <p>
-                    Acesse diariamente as melhores oportunidades de SureBet selecionadas por nossa equipe de especialistas. Transforme apostas em uma fonte de renda consistente!
+                <div style="margin: 1rem 2rem;">
+                    <p>• <strong>↗ Superior Dir.</strong> ← Mais comum!</p>
+                    <p>• <strong>↖ Superior Esq.</strong></p>
+                    <p>• <strong>↘ Inferior Dir.</strong></p>
+                    <p>• <strong>↙ Inferior Esq.</strong></p>
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Dica:</strong> O logo DEVE ser PNG com fundo transparente! Se tiver fundo branco, use um editor online como <a href="https://remove.bg" target="_blank">remove.bg</a> para remover.
+                </div>
+            </div>
+
+            <!-- PASSO 7 -->
+            <div class="step">
+                <span class="step-number">7</span>
+                <h2>Baixar e Postar</h2>
+                <p>Quando estiver perfeito:</p>
+                
+                <div class="checklist">
+                    <ul>
+                        <li>Clique no botão <strong>"💾 BAIXAR IMAGEM"</strong></li>
+                        <li>A imagem será salva em alta qualidade (PNG)</li>
+                        <li>Nome do arquivo: <code>workshop-raiva-2026-02-07.png</code></li>
+                        <li>Pronto para postar no Instagram/Facebook!</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- EXEMPLOS LADO A LADO -->
+            <div class="step" style="background: #f0f0f0;">
+                <h2 style="text-align: center; margin-bottom: 2rem; font-size: 2rem;">📊 Antes vs Depois</h2>
+                
+                <div class="comparison">
+                    <div class="comparison-item bad">
+                        <h3>❌ Post Básico (que eu gerei)</h3>
+                        <div style="background: #8B4654; color: white; padding: 2rem; text-align: center; border-radius: 8px; margin-top: 1rem;">
+                            <p style="font-size: 1.5rem; font-weight: bold;">RAIVA NÃO É<br>O PROBLEMA</p>
+                        </div>
+                        <p style="margin-top: 1rem; color: #666;">Sem foto, sem emoção, muito simples</p>
+                    </div>
+                    <div class="comparison-item good">
+                        <h3>✅ Post Profissional (usando o editor)</h3>
+                        <div class="mockup" style="min-height: 300px; font-size: 1.5rem;">
+                            RAIVA NÃO É<br>O PROBLEMA.<br><br>NÃO SABER O QUE<br>FAZER COM ELA, É.
+                        </div>
+                        <p style="margin-top: 1rem; color: #666;">Com foto real, overlay, logo, profissional!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CALENDÁRIO DE POSTS -->
+            <div class="step">
+                <h2>📅 Calendário de Postagem Sugerido</h2>
+                <p>Crie e agende os posts ao longo de 3 semanas:</p>
+
+                <table style="width: 100%; margin-top: 1.5rem; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: #8B4654; color: white;">
+                            <th style="padding: 1rem; text-align: left;">Dia</th>
+                            <th style="padding: 1rem; text-align: left;">Template</th>
+                            <th style="padding: 1rem; text-align: left;">Objetivo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: #f9f9f9;">
+                            <td style="padding: 0.75rem;">Segunda</td>
+                            <td style="padding: 0.75rem;"><strong>01 - Headline Principal</strong></td>
+                            <td style="padding: 0.75rem;">Chamar atenção</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem;">Quarta</td>
+                            <td style="padding: 0.75rem;"><strong>03 - Culpa por Sentir</strong></td>
+                            <td style="padding: 0.75rem;">Identificação</td>
+                        </tr>
+                        <tr style="background: #f9f9f9;">
+                            <td style="padding: 0.75rem;">Sexta</td>
+                            <td style="padding: 0.75rem;"><strong>06 - Aprendizados</strong></td>
+                            <td style="padding: 0.75rem;">Mostrar valor</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem;">Segunda</td>
+                            <td style="padding: 0.75rem;"><strong>07 - Benefícios</strong></td>
+                            <td style="padding: 0.75rem;">Reforçar valor</td>
+                        </tr>
+                        <tr style="background: #f9f9f9;">
+                            <td style="padding: 0.75rem;">Quarta</td>
+                            <td style="padding: 0.75rem;"><strong>04 - Call to Action</strong></td>
+                            <td style="padding: 0.75rem;">Converter inscrições</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem;">Sexta</td>
+                            <td style="padding: 0.75rem;"><strong>10 - Informações</strong></td>
+                            <td style="padding: 0.75rem;">Lembrar data</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- TROUBLESHOOTING -->
+            <div class="step">
+                <h2>🔧 Problemas Comuns</h2>
+                
+                <div style="margin-top: 1.5rem;">
+                    <p><strong>❓ Texto não aparece?</strong></p>
+                    <p style="margin-left: 1.5rem; color: #666;">→ Verifique se a cor do texto não está igual ao fundo. Mude para branco.</p>
+                </div>
+
+                <div style="margin-top: 1rem;">
+                    <p><strong>❓ Foto muito clara/escura?</strong></p>
+                    <p style="margin-left: 1.5rem; color: #666;">→ Ajuste o slider "Escurecer" até ficar legível.</p>
+                </div>
+
+                <div style="margin-top: 1rem;">
+                    <p><strong>❓ Logo muito grande?</strong></p>
+                    <p style="margin-left: 1.5rem; color: #666;">→ O tamanho é fixo em 150px. Use uma imagem menor ou recorte antes.</p>
+                </div>
+
+                <div style="margin-top: 1rem;">
+                    <p><strong>❓ Texto não quebra linha?</strong></p>
+                    <p style="margin-left: 1.5rem; color: #666;">→ Aperte ENTER no campo de texto para criar quebras manuais.</p>
+                </div>
+            </div>
+
+            <!-- CTA FINAL -->
+            <div class="final-cta">
+                <h2>🚀 Pronta para Começar!</h2>
+                <p>Com este guia + o editor HTML, sua irmã consegue criar posts PROFISSIONAIS em minutos!</p>
+                <p style="font-size: 1rem; margin-top: 1.5rem; opacity: 0.9;">
+                    <strong>Arquivos necessários:</strong><br>
+                    ✓ editor-workshop-raiva.html (o editor)<br>
+                    ✓ Logo "Descomplicando Emoções" em PNG<br>
+                    ✓ Fotos do Pexels/Unsplash
                 </p>
-                <a href="https://t.me/+ENh4HSs9NiA4NTFh" class="telegram-button" target="_blank">
-                    <span class="telegram-icon">📱</span>
-                    Entrar no Grupo Telegram
-                </a>
-                <p style="margin-top: 30px; font-size: 16px;">
-                    ✅ Oportunidades diárias<br>
-                    ✅ Suporte especializado<br>
-                    ✅ Comunidade ativa<br>
-                    ✅ Resultados comprovados
-                </p>
             </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 SureBet Pro. Todos os direitos reservados.</p>
-            <p>Aposte com responsabilidade. Maiores de 18 anos.</p>
         </div>
-    </footer>
-
-    <script>
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Add some interactive effects
-        const cards = document.querySelectorAll('.feature-card, .benefit-item');
-        cards.forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-10px) scale(1.02)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-
-        // Animate elements on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.feature-card, .benefit-item').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
-    </script>
+    </div>
 </body>
-  </html>
+</html>
